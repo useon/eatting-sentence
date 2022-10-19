@@ -60,6 +60,14 @@ const SearchBook = () => {
         </form>
       </div>
       <ul className='SearchResult'>
+        {books.map((book, index) => (
+          <SearchResult
+            key={index}
+            thumbnail={book.thumbnail}
+            title={book.title}
+            authors={book.authors}
+          />
+        ))}
       </ul>
     </div>
   )
