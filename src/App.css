@@ -24,3 +24,35 @@ body {
   padding-left: 20px;
   padding-right: 20px;
 }
+
+/* MyHeader Component*/
+header {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #e2e2e2;
+}
+
+header>div {
+  display: flex;
+}
+
+header .head_btn_left {
+  width: 50%;
+  justify-content: start;
+}
+
+header .head_btn_right {
+  width: 50%;
+  justify-content: end;
+}
+
+/* MyButton Component*/
+.MyButton {
+  cursor: pointer;
+  background-color: white;
+  border: solid 0.2rem #434850;
+  border-radius: 0.5rem;
+  padding: 5px;
+}
