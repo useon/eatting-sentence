@@ -1,11 +1,11 @@
-const SearchResult = ({ key, thumbnail, title, authors }) => {
+const SearchResult = ({ id, thumbnail, title, authors, isCheck, checkHandler }) => {
 
   return (
-    <li className='bookItem' id={key}>
-      <img className='bookItem_img' src={thumbnail} id={key} />
-      <div className='resultBook_info' id={key}>
-        <span className='resultBook_title' id={key}>{title}</span>
-        <span className='resultBook_author' id={key}>{authors}</span>
+    <li className={isCheck ? 'itemCheck_true' : 'itemCheck_false'} id={id} onClick={() => checkHandler(id)}>
+      <img className='bookItem_img' src={thumbnail} id={id} alt={`책 제목 ${title}의 표지`} />
+      <div className='resultBook_info' id={id}>
+        <span className='resultBook_title' id={id}>{title}</span>
+        <span className='resultBook_author' id={id}>{authors}</span>
       </div>
     </li>
   )

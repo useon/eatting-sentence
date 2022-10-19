@@ -82,6 +82,11 @@ header .head_btn_right {
   display: flex;
   margin-top: 2rem;
   margin-bottom: 2rem;
+  cursor: pointer;
+}
+
+.SearchResult .itemCheck_true {
+  border: 3px solid var(--gray);
 }
 
 .SearchResult .resultBook_info {
