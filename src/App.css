@@ -1,0 +1,26 @@
+/* 전역 style */
+:root {
+  --ivory: #f7f7f7;
+  --gray: #7d8798;
+  --black: #272727;
+  --red: #d32b2b;
+  --main-border-radius: 3rem;
+  /* --button-font:
+  --main-font: */
+}
+
+body {
+  background-color: #f6f6f6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0px;
+}
+
+.App {
+  min-width: 70vw;
+  min-height: 100vh;
+  padding-left: 20px;
+  padding-right: 20px;
+}
