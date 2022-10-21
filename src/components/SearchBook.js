@@ -14,7 +14,7 @@ const kakaoSearch = (params) => {
   return KAKAO.get("/v3/search/book", { params })
 };
 
-const SearchBook = () => {
+const SearchBook = ({ addBookToState }) => {
   const [books, setBooks] = useState([]);
   const [query, setQuery] = useState('');
   const [checkArr, setCheckArr] = useState([]);
@@ -46,10 +46,11 @@ const SearchBook = () => {
     }
   };
 
-  const checkHandler = (id) => {
+  const checkHandler = ({ id, thumbnail, title, authors }) => {
     const newArr = Array(books.length).fill(false);
     newArr[parseInt(id)] = true;
     setCheckArr(newArr);
+    addBookToState(title, authors, thumbnail);
   }
 
   return (
