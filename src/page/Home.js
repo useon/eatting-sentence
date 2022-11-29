@@ -3,7 +3,7 @@ import { dbService } from 'myBase';
 
 import MyButton from 'components/Mybutton';
 import MyHeader from 'components/MyHeader';
-import Drawer from './Drawer';
+import BookCase from 'components/BookCase';
 
 const Home = () => {
   const [bookcase, setBookcase] = useState([]);
@@ -36,10 +36,10 @@ const Home = () => {
           <MyButton text={'책 추가하기'} type={'add'} auth={'/addBook'} />
         }
       />
-      <section>
-        <div className="">
+      <section className="bookcase">
+        <div className="bookcase compartment">
           {bookcase.map((index) => (
-            <Drawer thumbnail={index[0]} title={index[1]} />
+            <BookCase thumbnail={index[0]} title={index[1]} key={index[1]} />
           ))}
         </div>
       </section>
