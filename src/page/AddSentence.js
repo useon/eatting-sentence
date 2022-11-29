@@ -12,15 +12,50 @@ const AddSentence = () => {
   const [setencesData, setSentenceData] = useState({});
 
   const addSentenceToState = (sentence) => {
-    console.log(sentence);
     setSentenceData(sentence);
+  };
+
+  const addSentenceToDB = async (element) => {
+    element.preventDefault();
+    const prevSentences = await (
+      await dbService.collection('Books').doc(title).get()
+    ).data().sentences;
+    if (window.confirm('문장을 추가하시겠습니까?')) {
+      const randomKey = new Date().getTime();
+      if (Object.keys(prevSentences).length !== 0) {
+        dbService
+          .collection('Books')
+          .doc(title)
+          .update({
+            sentences: {
+              ...prevSentences,
+              [randomKey]: setencesData,
+            },
+          });
+      } else {
+        dbService
+          .collection('Books')
+          .doc(title)
+          .update({
+            sentences: {
+              [randomKey]: setencesData,
+            },
+          });
+      }
+    }
   };
 
   return (
     <div className="AddBook">
       <MyHeader
         leftChild={<MyButton text={'뒤로가기'} onClick={() => navigate(-1)} />}
-        rightChild={<button text={'완료하기'} type={'complete'} />}
+        rightChild={
+          <button
+            text={'완료하기'}
+            type={'complete'}
+            onClick={(e) => addSentenceToDB(e)}
+          />
+        }
       />
       <section>
         <SentenceEditor addSentenceToState={addSentenceToState} />
