@@ -6,7 +6,7 @@ import IsLogIn from '../components/IsLogIn';
 import Drawer from 'page/Drawer';
 import Home from 'page/Home';
 import AddBook from 'page/AddBook';
-import NewSentence from 'page/NewSentence';
+import AddSentence from 'page/AddSentence';
 import EditBook from 'page/EditBook';
 import EditSentence from 'page/EditSentence';
 import SignIn from 'page/SignIn';
@@ -20,8 +20,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/signIn" element={<SignIn />} />
           <Route path="/addBook" element={<AddBook />} />
-          <Route path="/newSentence" element={<NewSentence />} />
           <Route path="/drawer/:id" element={<Drawer />} />
+          <Route path="/addSentence" element={<AddSentence />} />
           <Route path="/editBook/:id" element={<EditBook />} />
           <Route path="/editSentence/:id" element={<EditSentence />} />
         </Routes>

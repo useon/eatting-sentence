@@ -8,11 +8,21 @@ const Drawer = () => {
   const location = useLocation();
   const title = location.state.title;
   const thumbnail = location.state.thumbnail;
+  const goAddSentence = () => {
+    navigate('/addSentence', { state: { title: title } });
+  };
   return (
     <div>
       <MyHeader
         leftChild={<MyButton text={'뒤로가기'} onClick={() => navigate(-1)} />}
-        rightChild={<MyButton text={'문장 추가하기'} />}
+        rightChild={
+          <button
+            className={['MyButton', 'MyButton_add'].join(' ')}
+            onClick={goAddSentence}
+          >
+            문장추가하기
+          </button>
+        }
       />
       <section>
         <div>
