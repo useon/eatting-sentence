@@ -1,5 +1,6 @@
 import MyButton from 'components/Mybutton';
 import MyHeader from 'components/MyHeader';
+import SentenceList from 'components/SentenceList';
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -30,6 +31,9 @@ const Drawer = () => {
           <div>
             <span>{title}</span>
           </div>
+        </div>
+        <div>
+          <SentenceList title={title} />
         </div>
       </section>
     </div>

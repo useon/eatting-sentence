@@ -17,11 +17,13 @@ const AddSentence = () => {
 
   const addSentenceToDB = async (element) => {
     element.preventDefault();
-    const prevSentences = await (
+    const prevSentences = (
       await dbService.collection('Books').doc(title).get()
     ).data().sentences;
+
     if (window.confirm('문장을 추가하시겠습니까?')) {
       const randomKey = new Date().getTime();
+
       if (Object.keys(prevSentences).length !== 0) {
         dbService
           .collection('Books')
