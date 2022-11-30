@@ -3,8 +3,10 @@ import MyHeader from 'components/MyHeader';
 import SearchBook from 'components/SearchBook';
 import { dbService } from 'myBase';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const AddBook = () => {
+  const navigate = useNavigate();
   const [bookData, setBookData] = useState({});
 
   const addBookToState = (title, authors, thumbnail) => {
@@ -32,7 +34,7 @@ const AddBook = () => {
   return (
     <div className="AddBook">
       <MyHeader
-        leftChild={<MyButton text={'뒤로가기'} />}
+        leftChild={<MyButton text={'뒤로가기'} onClick={() => navigate(-1)} />}
         rightChild={
           <button className="MyButton" onClick={(e) => addBookToDb(e)}>
             {'완료하기'}
