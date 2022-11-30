@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 import { authService } from 'myBase';
-
 
 const IsLogIn = () => {
   const navigate = useNavigate();
@@ -15,6 +14,6 @@ const IsLogIn = () => {
       }
     });
   }, []);
-}
+};
 
 export default IsLogIn;

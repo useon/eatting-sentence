@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { dbService } from 'myBase';
+import { authService, dbService } from 'myBase';
 
 import MyButton from 'components/Mybutton';
 import MyHeader from 'components/MyHeader';
 import BookCase from 'components/BookCase';
+import IsLogIn from 'components/IsLogIn';
 
 const Home = () => {
   const [bookcase, setBookcase] = useState([]);
   let bookcaseData = [];
+
+  const logOut = () => {
+    authService.signOut();
+    IsLogIn();
+  };
 
   const getBookcase = async () => {
     const books = await dbService.collection('Books').get();
@@ -31,7 +37,11 @@ const Home = () => {
   return (
     <div>
       <MyHeader
-        leftChild={<MyButton text={'로그아웃'} />}
+        leftChild={
+          <button className="MyButton" onClick={() => logOut()}>
+            {'로그아웃'}
+          </button>
+        }
         rightChild={
           <MyButton text={'책 추가하기'} type={'add'} auth={'/addBook'} />
         }
