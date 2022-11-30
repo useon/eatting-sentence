@@ -48,15 +48,13 @@ const AddSentence = () => {
   };
 
   return (
-    <div className="AddBook">
+    <div className="AddSentence">
       <MyHeader
         leftChild={<MyButton text={'뒤로가기'} onClick={() => navigate(-1)} />}
         rightChild={
-          <button
-            text={'완료하기'}
-            type={'complete'}
-            onClick={(e) => addSentenceToDB(e)}
-          />
+          <button className="MyButton" onClick={(e) => addSentenceToDB(e)}>
+            {'완료하기'}
+          </button>
         }
       />
       <section>

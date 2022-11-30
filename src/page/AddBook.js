@@ -34,11 +34,9 @@ const AddBook = () => {
       <MyHeader
         leftChild={<MyButton text={'뒤로가기'} />}
         rightChild={
-          <button
-            text={'완료하기'}
-            type={'complete'}
-            onClick={(e) => addBookToDb(e)}
-          />
+          <button className="MyButton" onClick={(e) => addBookToDb(e)}>
+            {'완료하기'}
+          </button>
         }
       />
       <section>
