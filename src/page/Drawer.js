@@ -25,14 +25,15 @@ const Drawer = () => {
           </button>
         }
       />
-      <section>
-        <div>
-          <img src={thumbnail} alt="책표지" className="" />
+      <section className="drawer">
+        <div className="drawer information">
+          <img src={thumbnail} alt="책표지" />
           <div>
+            <span></span>
             <span>{title}</span>
           </div>
         </div>
-        <div>
+        <div className="drawer sentencesWrapper">
           <SentenceList title={title} />
         </div>
       </section>

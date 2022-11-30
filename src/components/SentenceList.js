@@ -17,7 +17,9 @@ const SentenceList = ({ title }) => {
   const sentencesArr = Object.entries(sentencesData);
 
   return sentencesArr.map((sentence) => (
-    <div id={sentence[0]}>{sentence[1]}</div>
+    <div className="sentenceList" id={sentence[0]}>
+      {sentence[1]}
+    </div>
   ));
 };
 
