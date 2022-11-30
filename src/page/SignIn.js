@@ -1,18 +1,18 @@
 import { authService } from 'myBase';
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-const Auth = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+const SignIn = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [newAccount, setNewAccount] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const onChange = (event) => {
     const {
       target: { name, value },
     } = event;
-    if (name === "email") {
+    if (name === 'email') {
       setEmail(value);
-    } else if (name === "password") {
+    } else if (name === 'password') {
       setPassword(value);
     }
   };
@@ -21,11 +21,14 @@ const Auth = () => {
     try {
       let data;
       if (newAccount) {
-        data = await authService.createUserWithEmailAndPassword(email, password);
+        data = await authService.createUserWithEmailAndPassword(
+          email,
+          password
+        );
       } else {
         data = await authService.signInWithEmailAndPassword(email, password);
       }
-      console.log(data)
+      console.log(data);
     } catch (error) {
       setError(error.message);
     }
@@ -33,12 +36,15 @@ const Auth = () => {
   const toggleAccount = () => setNewAccount((prev) => !prev);
 
   return (
-    <div>
+    <div className="welcomeWrapper">
+      <span className="welcomeWrapper info">
+        {newAccount ? '회원 가입' : '로그인'}
+      </span>
       <form onSubmit={onSubmit}>
         <input
           name="email"
           type="email"
-          placeholder="Email"
+          placeholder="이메일을 입력해주세요."
           required
           value={email}
           onChange={onChange}
@@ -46,21 +52,22 @@ const Auth = () => {
         <input
           name="password"
           type="password"
-          placeholder="Password"
+          placeholder="비밀번호를 입력해주세요."
           required
           value={password}
           onChange={onChange}
         />
         <input
+          className="MyButton"
           type="submit"
-          value={newAccount ? "Create Account" : "Sign In"}
+          value={newAccount ? '계정 만들기' : '로그인 하기'}
         />
         {error}
       </form>
-      <span onClick={toggleAccount}>
-        {newAccount ? "Sign In" : "Create Account"}
+      <span className="welcomeWrapper loginOrCreate" onClick={toggleAccount}>
+        {newAccount ? '로그인 하기' : '계정 만들기'}
       </span>
     </div>
   );
 };
-export default Auth;
+export default SignIn;
