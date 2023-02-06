@@ -9,6 +9,8 @@ const AddSentence = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const title = location.state.title;
+  const sentenceId = location.state.sentenceId;
+  const sentenceContent = location.state.sentenceContent;
   const [setencesData, setSentenceData] = useState({});
 
   const addSentenceToState = (sentence) => {
@@ -22,10 +24,10 @@ const AddSentence = () => {
     ).data().sentences;
 
     if (window.confirm('문장을 추가하시겠습니까?')) {
-      const randomKey = new Date().getTime();
-
-      if (Object.keys(prevSentences).length !== 0) {
-        dbService
+      if(sentenceContent === undefined) {
+        const randomKey = new Date().getTime();
+        if(Object.keys(prevSentences).length !== 0) {
+          dbService
           .collection('Books')
           .doc(title)
           .update({
@@ -34,8 +36,8 @@ const AddSentence = () => {
               [randomKey]: setencesData,
             },
           });
-      } else {
-        dbService
+        } else {
+          dbService
           .collection('Books')
           .doc(title)
           .update({
@@ -43,9 +45,22 @@ const AddSentence = () => {
               [randomKey]: setencesData,
             },
           });
+        }
+      } else {
+        dbService
+        .collection('Books')
+        .doc(title)
+        .update({
+          sentences: {
+            ...prevSentences,
+            [sentenceId]: setencesData,
+          },
+        });
       }
     }
-  };
+    navigate(-1)
+  }
+
 
   return (
     <div className="AddSentence">
@@ -58,9 +73,10 @@ const AddSentence = () => {
         }
       />
       <section>
-        <SentenceEditor addSentenceToState={addSentenceToState} />
+        <SentenceEditor addSentenceToState={addSentenceToState} sentenceContent={sentenceContent} />
       </section>
     </div>
   );
-};
+}
+
 export default AddSentence;
