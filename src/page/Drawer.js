@@ -21,10 +21,9 @@ const Drawer = () => {
       .collection('Books')
       .doc(title)
       .delete();
-      navigate('/');
+      navigate(-1);
     }
   }
-
   return (
     <div>
       <MyHeader

@@ -28,6 +28,7 @@ const AddBook = () => {
           thumbnail: bookData.thumbnail,
           sentences: {},
         });
+        navigate(-1);
     }
   };
 

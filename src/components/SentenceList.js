@@ -5,9 +5,32 @@ import {  useNavigate } from 'react-router-dom';
 const SentenceList = ({ title }) => {
   const [sentencesData, setSentenceData] = useState({});
   const navigate = useNavigate();
-  const transmitData = (e) => {
-    const id = e.target.parentNode.parentNode.id;
-    const content = e.target.parentNode.parentNode.lastChild.data;
+
+  const deleteData = async(element) => {
+    element.preventDefault();
+    const sentenceObj = (
+      await dbService.collection('Books').doc(title).get()
+    ).data().sentences;
+
+    const id = element.target.parentNode.parentNode.id;
+
+    if(window.confirm('이 문장을 삭제하시겠습니까?')) {
+      delete sentenceObj[id];
+      setSentenceData(sentenceObj);
+      dbService
+      .collection('Books')
+      .doc(title)
+      .update({
+        sentences: {
+          ...sentenceObj,
+        },
+      });
+    }
+  }
+
+  const transmitData = (element) => {
+    const id = element.target.parentNode.parentNode.id;
+    const content = element.target.parentNode.parentNode.lastChild.data;
     navigate('/addSentence', {state: {title: title, sentenceId: id, sentenceContent: content}
   });
   }
@@ -29,7 +52,7 @@ const SentenceList = ({ title }) => {
         <div className="sentenceList" id={data[0]}>
           <div>
             <button onClick={transmitData}>수정</button>
-            <button>삭제</button>
+            <button onClick={deleteData}>삭제</button>
             </div>
           {data[1]}
         </div>
