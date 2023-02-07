@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/sentence_collection_note/static/css/main.5ee166f2.css",
+    "main.js": "/sentence_collection_note/static/js/main.99b6866b.js",
+    "index.html": "/sentence_collection_note/index.html",
+    "main.5ee166f2.css.map": "/sentence_collection_note/static/css/main.5ee166f2.css.map",
+    "main.99b6866b.js.map": "/sentence_collection_note/static/js/main.99b6866b.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.5ee166f2.css",
+    "static/js/main.99b6866b.js"
+  ]
+}
