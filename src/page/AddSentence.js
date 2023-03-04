@@ -3,9 +3,14 @@ import MyHeader from 'components/MyHeader';
 import SentenceEditor from 'components/SentenceEditor';
 import { dbService } from 'myBase';
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const AddSentence = () => {
+  const userEmail = useSelector(state=> {
+    return state.user.value;
+  });
+
   const navigate = useNavigate();
   const location = useLocation();
   const title = location.state.title;
@@ -20,7 +25,7 @@ const AddSentence = () => {
   const addSentenceToDB = async (element) => {
     element.preventDefault();
     const prevSentences = (
-      await dbService.collection('Books').doc(title).get()
+      await dbService.collection(userEmail).doc(title).get()
     ).data().sentences;
 
     if (window.confirm('문장을 추가하시겠습니까?')) {
@@ -28,7 +33,7 @@ const AddSentence = () => {
         const randomKey = new Date().getTime();
         if(Object.keys(prevSentences).length !== 0) {
           dbService
-          .collection('Books')
+          .collection(userEmail)
           .doc(title)
           .update({
             sentences: {
@@ -38,7 +43,7 @@ const AddSentence = () => {
           });
         } else {
           dbService
-          .collection('Books')
+          .collection(userEmail)
           .doc(title)
           .update({
             sentences: {
@@ -48,7 +53,7 @@ const AddSentence = () => {
         }
       } else {
         dbService
-        .collection('Books')
+        .collection(userEmail)
         .doc(title)
         .update({
           sentences: {

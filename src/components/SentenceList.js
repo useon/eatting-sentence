@@ -1,15 +1,20 @@
 import { dbService } from 'myBase';
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import {  useNavigate } from 'react-router-dom';
 
 const SentenceList = ({ title }) => {
+  const userEmail = useSelector(state=> {
+    return state.user.value;
+  });
+
   const [sentencesData, setSentenceData] = useState({});
   const navigate = useNavigate();
 
   const deleteData = async(element) => {
     element.preventDefault();
     const sentenceObj = (
-      await dbService.collection('Books').doc(title).get()
+      await dbService.collection(userEmail).doc(title).get()
     ).data().sentences;
 
     const id = element.target.parentNode.parentNode.id;
@@ -18,7 +23,7 @@ const SentenceList = ({ title }) => {
       delete sentenceObj[id];
       setSentenceData(sentenceObj);
       dbService
-      .collection('Books')
+      .collection(userEmail)
       .doc(title)
       .update({
         sentences: {
@@ -37,7 +42,7 @@ const SentenceList = ({ title }) => {
 
   const getSentences = async () => {
     const sentencesObj = (
-      await dbService.collection('Books').doc(title).get()
+      await dbService.collection(userEmail).doc(title).get()
     ).data().sentences;
     setSentenceData(sentencesObj);
   };

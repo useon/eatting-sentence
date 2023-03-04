@@ -4,8 +4,13 @@ import SearchBook from 'components/SearchBook';
 import { dbService } from 'myBase';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const AddBook = () => {
+  const userEmail = useSelector(state=> {
+    return state.user.value;
+  });
+
   const navigate = useNavigate();
   const [bookData, setBookData] = useState({});
 
@@ -21,7 +26,7 @@ const AddBook = () => {
     e.preventDefault();
     if (window.confirm('선택한 책을 등록하시겠습니까 ?')) {
       dbService
-        .collection('Books')
+        .collection(userEmail)
         .doc(bookData.title)
         .set({
           authors: bookData.authors.join(' '),

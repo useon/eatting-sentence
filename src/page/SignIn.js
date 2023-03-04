@@ -1,11 +1,16 @@
 import { authService } from 'myBase';
 import React, { useState } from 'react';
+import { login } from 'redux/userSlice';
+import { useDispatch } from 'react-redux';
 
 const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [newAccount, setNewAccount] = useState(false);
   const [error, setError] = useState('');
+  const dispatch = useDispatch();
+  
+
   const onChange = (event) => {
     const {
       target: { name, value },
@@ -27,8 +32,8 @@ const SignIn = () => {
         );
       } else {
         data = await authService.signInWithEmailAndPassword(email, password);
+        dispatch(login(email));
       }
-      console.log(data);
     } catch (error) {
       setError(error.message);
     }

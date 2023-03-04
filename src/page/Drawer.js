@@ -3,9 +3,14 @@ import MyHeader from 'components/MyHeader';
 import SentenceList from 'components/SentenceList';
 import { dbService } from 'myBase';
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const Drawer = () => {
+  const userEmail = useSelector(state=> {
+    return state.user.value;
+  });
+
   const navigate = useNavigate();
   const location = useLocation();
   const title = location.state.title;
@@ -18,7 +23,7 @@ const Drawer = () => {
     element.preventDefault();
     if(window.confirm('이 책을 삭제하시겠습니까?')) {
       dbService
-      .collection('Books')
+      .collection(userEmail)
       .doc(title)
       .delete();
       navigate(-1);
