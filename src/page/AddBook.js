@@ -1,16 +1,13 @@
-import MyButton from 'components/Mybutton';
 import MyHeader from 'components/MyHeader';
 import SearchBook from 'components/SearchBook';
 import { dbService } from 'myBase';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { selectEmail } from 'redux/userSlice';
 
 const AddBook = () => {
-  const userEmail = useSelector(state=> {
-    return state.user.value;
-  });
-
+  const userEmail = useSelector(selectEmail);
   const navigate = useNavigate();
   const [bookData, setBookData] = useState({});
 
@@ -40,9 +37,13 @@ const AddBook = () => {
   return (
     <div className="AddBook">
       <MyHeader
-        leftChild={<MyButton text={'뒤로가기'} onClick={() => navigate(-1)} />}
+        leftChild={
+          <button className="" onClick={() => navigate(-1)}>
+          {'뒤로가기'}
+        </button>
+        }
         rightChild={
-          <button className="MyButton" onClick={(e) => addBookToDb(e)}>
+          <button className="" onClick={(e) => addBookToDb(e)}>
             {'완료하기'}
           </button>
         }

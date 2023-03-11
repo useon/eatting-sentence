@@ -1,15 +1,15 @@
-import { authService } from 'myBase';
 import React, { useState } from 'react';
-import { login } from 'redux/userSlice';
+import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { useDispatch } from 'react-redux';
+import { setUser } from 'redux/userSlice';
 
 const SignIn = () => {
+  const auth = getAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [newAccount, setNewAccount] = useState(false);
   const [error, setError] = useState('');
   const dispatch = useDispatch();
-  
 
   const onChange = (event) => {
     const {
@@ -21,23 +21,27 @@ const SignIn = () => {
       setPassword(value);
     }
   };
+
   const onSubmit = async (event) => {
-    event.preventDefault();
+    event.preventDefault()
     try {
-      let data;
       if (newAccount) {
-        data = await authService.createUserWithEmailAndPassword(
-          email,
-          password
-        );
+        await createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+        })
       } else {
-        data = await authService.signInWithEmailAndPassword(email, password);
-        dispatch(login(email));
+        await signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          dispatch(setUser(email));
+        })
       }
     } catch (error) {
       setError(error.message);
     }
   };
+
   const toggleAccount = () => setNewAccount((prev) => !prev);
 
   return (
@@ -46,31 +50,35 @@ const SignIn = () => {
         {newAccount ? '회원 가입' : '로그인'}
       </span>
       <form onSubmit={onSubmit}>
-        <input
+        <div>
+          <span>아이디</span>
+          <input
           name="email"
           type="email"
-          placeholder="이메일을 입력해주세요."
           required
           value={email}
           onChange={onChange}
-        />
-        <input
+          />
+        </div>
+        <div>
+          <span>비밀번호</span>
+          <input
           name="password"
           type="password"
-          placeholder="비밀번호를 입력해주세요."
           required
           value={password}
           onChange={onChange}
-        />
+          />
+        </div>
         <input
-          className="MyButton"
+          className='loginBtn'
           type="submit"
-          value={newAccount ? '계정 만들기' : '로그인 하기'}
+          value={newAccount ? '계정 만들기' : '로그인'}
         />
         {error}
       </form>
       <span className="welcomeWrapper loginOrCreate" onClick={toggleAccount}>
-        {newAccount ? '로그인 하기' : '계정 만들기'}
+        {newAccount ? '로그인' : '계정 만들기'}
       </span>
     </div>
   );

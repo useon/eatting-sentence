@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { authService, dbService } from 'myBase';
-
-import MyButton from 'components/Mybutton';
 import MyHeader from 'components/MyHeader';
 import BookCase from 'components/BookCase';
 import IsLogIn from 'components/IsLogIn';
+import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { selectEmail } from 'redux/userSlice';
 
 const Home = () => {
-  const userEmail = useSelector(state=> {
-    return state.user.value;
-  });
-  
+  const userEmail = useSelector(selectEmail);
+  const navigate = useNavigate();
   const [bookcase, setBookcase] = useState([]);
   let bookcaseData = [];
 
@@ -19,6 +17,7 @@ const Home = () => {
     authService.signOut();
     IsLogIn();
   };
+
 
   const getBookcase = async () => {
     const books = await dbService.collection(userEmail).get();
@@ -43,12 +42,14 @@ const Home = () => {
     <div>
       <MyHeader
         leftChild={
-          <button className="MyButton" onClick={() => logOut()}>
+          <button onClick={() => logOut()}>
             {'로그아웃'}
           </button>
         }
         rightChild={
-          <MyButton text={'책 추가하기'} type={'add'} auth={'/addBook'} />
+          <button onClick={() => navigate('/addBook')}>
+            {'추가'}
+          </button>
         }
       />
       <section className="bookcase">
@@ -61,4 +62,5 @@ const Home = () => {
     </div>
   );
 };
+
 export default Home;

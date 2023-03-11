@@ -1,16 +1,13 @@
-import MyButton from 'components/Mybutton';
 import MyHeader from 'components/MyHeader';
 import SentenceEditor from 'components/SentenceEditor';
 import { dbService } from 'myBase';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { selectEmail } from 'redux/userSlice';
 
 const AddSentence = () => {
-  const userEmail = useSelector(state=> {
-    return state.user.value;
-  });
-
+  const userEmail = useSelector(selectEmail);
   const navigate = useNavigate();
   const location = useLocation();
   const title = location.state.title;
@@ -70,9 +67,13 @@ const AddSentence = () => {
   return (
     <div className="AddSentence">
       <MyHeader
-        leftChild={<MyButton text={'뒤로가기'} onClick={() => navigate(-1)} />}
+        leftChild={
+          <button className="" onClick={() => navigate(-1)}>
+          {'뒤로가기'}
+        </button>
+        }        
         rightChild={
-          <button className="MyButton" onClick={(e) => addSentenceToDB(e)}>
+          <button className="" onClick={(e) => addSentenceToDB(e)}>
             {'완료하기'}
           </button>
         }

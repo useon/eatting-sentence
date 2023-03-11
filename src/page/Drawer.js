@@ -1,16 +1,13 @@
-import MyButton from 'components/Mybutton';
 import MyHeader from 'components/MyHeader';
 import SentenceList from 'components/SentenceList';
 import { dbService } from 'myBase';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { selectEmail } from 'redux/userSlice';
 
 const Drawer = () => {
-  const userEmail = useSelector(state=> {
-    return state.user.value;
-  });
-
+  const userEmail = useSelector(selectEmail);
   const navigate = useNavigate();
   const location = useLocation();
   const title = location.state.title;
@@ -32,17 +29,19 @@ const Drawer = () => {
   return (
     <div>
       <MyHeader
-        leftChild={<MyButton text={'뒤로가기'} onClick={() => navigate(-1)} />}
+        leftChild={
+          <button onClick={() => navigate(-1)}>
+          {'뒤로가기'}
+        </button>
+        }
         rightChild={
           <div>
           <button
-            className={['MyButton', 'MyButton_add'].join(' ')}
             onClick={goAddSentence}
           >
             문장추가하기
           </button>
           <button
-            className={['MyButton', 'MyButton_add'].join(' ')}
             onClick={removeBookToDB}
           >
             삭제

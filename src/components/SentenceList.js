@@ -2,12 +2,10 @@ import { dbService } from 'myBase';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import {  useNavigate } from 'react-router-dom';
+import { selectEmail } from 'redux/userSlice';
 
 const SentenceList = ({ title }) => {
-  const userEmail = useSelector(state=> {
-    return state.user.value;
-  });
-
+  const userEmail = useSelector(selectEmail);
   const [sentencesData, setSentenceData] = useState({});
   const navigate = useNavigate();
 
