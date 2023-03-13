@@ -1,13 +1,14 @@
 import MyHeader from 'components/MyHeader';
 import SentenceList from 'components/SentenceList';
-import { dbService } from 'myBase';
 import React from 'react';
+import { dbService } from 'myBase';
 import { useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { selectEmail } from 'redux/userSlice';
 
 const Drawer = () => {
   const userEmail = useSelector(selectEmail);
+  const userDataRef = dbService.collection(userEmail).doc('userData');
   const navigate = useNavigate();
   const location = useLocation();
   const title = location.state.title;
@@ -19,8 +20,8 @@ const Drawer = () => {
   const removeBookToDB = async(element) => {
     element.preventDefault();
     if(window.confirm('이 책을 삭제하시겠습니까?')) {
-      dbService
-      .collection(userEmail)
+      userDataRef
+      .collection('Bookshelf')
       .doc(title)
       .delete();
       navigate(-1);

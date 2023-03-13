@@ -6,13 +6,14 @@ import { selectEmail } from 'redux/userSlice';
 
 const SentenceList = ({ title }) => {
   const userEmail = useSelector(selectEmail);
+  const userDataRef = dbService.collection(userEmail).doc('userData');
   const [sentencesData, setSentenceData] = useState({});
   const navigate = useNavigate();
 
   const deleteData = async(element) => {
     element.preventDefault();
     const sentenceObj = (
-      await dbService.collection(userEmail).doc(title).get()
+      await userDataRef.collection('Bookshelf').doc(title).get()
     ).data().sentences;
 
     const id = element.target.parentNode.parentNode.id;
@@ -20,8 +21,8 @@ const SentenceList = ({ title }) => {
     if(window.confirm('이 문장을 삭제하시겠습니까?')) {
       delete sentenceObj[id];
       setSentenceData(sentenceObj);
-      dbService
-      .collection(userEmail)
+      userDataRef
+      .collection('Bookshelf')
       .doc(title)
       .update({
         sentences: {
@@ -40,7 +41,7 @@ const SentenceList = ({ title }) => {
 
   const getSentences = async () => {
     const sentencesObj = (
-      await dbService.collection(userEmail).doc(title).get()
+      await userDataRef.collection('Bookshelf').doc(title).get()
     ).data().sentences;
     setSentenceData(sentencesObj);
   };

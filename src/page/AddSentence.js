@@ -8,6 +8,7 @@ import { selectEmail } from 'redux/userSlice';
 
 const AddSentence = () => {
   const userEmail = useSelector(selectEmail);
+  const userDataRef = dbService.collection(userEmail).doc('userData');
   const navigate = useNavigate();
   const location = useLocation();
   const title = location.state.title;
@@ -22,15 +23,15 @@ const AddSentence = () => {
   const addSentenceToDB = async (element) => {
     element.preventDefault();
     const prevSentences = (
-      await dbService.collection(userEmail).doc(title).get()
+      await userDataRef.collection('Bookshelf').doc(title).get()
     ).data().sentences;
 
     if (window.confirm('문장을 추가하시겠습니까?')) {
       if(sentenceContent === undefined) {
         const randomKey = new Date().getTime();
         if(Object.keys(prevSentences).length !== 0) {
-          dbService
-          .collection(userEmail)
+          userDataRef
+          .collection('Bookshelf')
           .doc(title)
           .update({
             sentences: {
@@ -39,8 +40,8 @@ const AddSentence = () => {
             },
           });
         } else {
-          dbService
-          .collection(userEmail)
+          userDataRef
+          .collection('Bookshelf')
           .doc(title)
           .update({
             sentences: {
@@ -49,8 +50,8 @@ const AddSentence = () => {
           });
         }
       } else {
-        dbService
-        .collection(userEmail)
+        userDataRef
+        .collection('Bookshelf')
         .doc(title)
         .update({
           sentences: {
@@ -62,8 +63,7 @@ const AddSentence = () => {
     }
     navigate(-1)
   }
-
-
+  
   return (
     <div className="AddSentence">
       <MyHeader
