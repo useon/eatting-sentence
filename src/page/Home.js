@@ -6,6 +6,7 @@ import { authService, dbService } from 'myBase';
 import MyHeader from 'components/MyHeader';
 import BookCase from 'components/BookCase';
 import IsLogIn from 'components/IsLogIn';
+import HomeNavbar from 'components/HomeNavbar';
 
 const Home = () => {
   const userEmail = useSelector(selectEmail);
@@ -17,7 +18,6 @@ const Home = () => {
     authService.signOut();
     IsLogIn();
   };
-
 
   const getBookcase = async () => {
     const books = await dbService.collection(userEmail).doc('userData').collection('Bookshelf').get();
@@ -52,6 +52,7 @@ const Home = () => {
           </button>
         }
       />
+      <HomeNavbar/>
       <section className="bookcase">
         <div className="bookcase compartment">
           {bookcase.map((index) => (
