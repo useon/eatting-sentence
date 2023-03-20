@@ -12,7 +12,8 @@ const Drawer = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const title = location.state.title;
-  const thumbnail = location.state.thumbnail;
+  const authors = location.state.authors;
+  
   const goAddSentence = () => {
     navigate('/addSentence', { state: { title: title } });
   };
@@ -52,10 +53,9 @@ const Drawer = () => {
       />
       <section className="drawer">
         <div className="drawer information">
-          <img src={thumbnail} alt="책표지" />
           <div>
-            <span></span>
             <span>{title}</span>
+            <span>{authors}</span>
           </div>
         </div>
         <div className="drawer sentencesWrapper">

@@ -1,13 +1,14 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const BookCase = ({ title, thumbnail }) => {
+const BookCase = ({ title, thumbnail, authors }) => {
   const navigate = useNavigate();
   const goDrawer = () => {
     navigate(`/drawer/${title}`, {
-      state: { title: title, thumbnail: thumbnail },
+      state: { title: title, authors: authors },
     });
   };
+  
   return (
     <div className="compartment bookwrapper">
       <img

@@ -28,7 +28,7 @@ const Home = () => {
 
     if (booksMap.size !== undefined) {
       for (let key of booksMap.keys()) {
-        bookcaseData.push([booksMap.get(key).thumbnail, key]);
+        bookcaseData.push([booksMap.get(key).thumbnail, key, booksMap.get(key).authors]);
       }
       setBookcase(bookcaseData);
     }
@@ -55,8 +55,8 @@ const Home = () => {
       <HomeNavbar/>
       <section className="bookcase">
         <div className="bookcase compartment">
-          {bookcase.map((index) => (
-            <BookCase thumbnail={index[0]} title={index[1]} key={index[1]} />
+          {bookcase.map((data) => (
+            <BookCase thumbnail={data[0]} title={data[1]} key={data[1]} authors={data[2]}/>
           ))}
         </div>
       </section>
