@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { selectEmail } from 'redux/userSlice';
 import SearchModal from './SearchModal';
 
-const HomeNavbar = () => {
+const HomeNavbar = ({modeHandler}) => {
   const userEmail = useSelector(selectEmail);
   const [onModal, setOnModal] = useState(false);
   const [bookcaseData, setBookcaseData] = useState([]);
@@ -52,8 +52,8 @@ const HomeNavbar = () => {
     <div className='HomeNavbar'>
       <div className='left_area'>
         <div className='tab_wrap'>        
-          <button>책장</button>
-          <button>서랍</button>
+          <button onClick={() => modeHandler('bookshelf')}>책장</button>
+          <button onClick={() => modeHandler('drawer')}>서랍</button>
         </div>
         <select className='option_wrap'>
           <option>최신순</option>

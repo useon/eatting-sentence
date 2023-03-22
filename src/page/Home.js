@@ -7,11 +7,13 @@ import MyHeader from 'components/MyHeader';
 import Bookshelf from 'components/Bookshelf';
 import IsLogIn from 'components/IsLogIn';
 import HomeNavbar from 'components/HomeNavbar';
+import Drawer from 'components/Drawer';
 
 const Home = () => {
   const userEmail = useSelector(selectEmail);
   const navigate = useNavigate();
   const [bookData, setBookData] = useState([]);
+  const [mode, setMode] = useState('bookshelf')
 
   const logOut = () => {
     authService.signOut();
@@ -39,6 +41,11 @@ const Home = () => {
     getBookshelf();
   }, []);
 
+  const modeHandler = (mode) => {
+    if(mode === 'bookshelf') setMode('bookshelf');
+    if(mode === 'drawer') setMode('drawer');
+  }
+
   return (
     <div>
       <MyHeader
@@ -53,12 +60,12 @@ const Home = () => {
           </button>
         }
       />
-      <HomeNavbar/>
-      <section className="bookcase">
+      <HomeNavbar modeHandler={modeHandler}/>
+      <section className="">
         <div className="bookcase compartment">
-          {bookData.map((data) => (
+          {mode==='bookshelf'? bookData.map((data) => (
             <Bookshelf thumbnail={data[0]} title={data[1]} key={data[1]} authors={data[2]}/>
-          ))}
+          )) : <Drawer/>}
         </div>
       </section>
     </div>
