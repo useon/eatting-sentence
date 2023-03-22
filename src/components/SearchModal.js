@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 const SearchModal = ({title, authors}) => {
   const navigate = useNavigate();
   const goBookPage = () => {
-    navigate(`/drawer/${title}`, {
+    navigate(`/book/${title}`, {
       state: { title: title, authors: authors},
     });  
   }

@@ -4,38 +4,39 @@ import { useSelector } from 'react-redux';
 import { selectEmail } from 'redux/userSlice';
 import { authService, dbService } from 'myBase';
 import MyHeader from 'components/MyHeader';
-import BookCase from 'components/BookCase';
+import Bookshelf from 'components/Bookshelf';
 import IsLogIn from 'components/IsLogIn';
 import HomeNavbar from 'components/HomeNavbar';
 
 const Home = () => {
   const userEmail = useSelector(selectEmail);
   const navigate = useNavigate();
-  const [bookcase, setBookcase] = useState([]);
-  let bookcaseData = [];
+  const [bookData, setBookData] = useState([]);
 
   const logOut = () => {
     authService.signOut();
     IsLogIn();
   };
 
-  const getBookcase = async () => {
+  const getBookshelf = async () => {
     const books = await dbService.collection(userEmail).doc('userData').collection('Bookshelf').get();
     const booksMap = new Map();
+    const booksArr = [];
+
     books.forEach((document) => {
       booksMap.set(document.id, document.data());
     });
 
     if (booksMap.size !== undefined) {
       for (let key of booksMap.keys()) {
-        bookcaseData.push([booksMap.get(key).thumbnail, key, booksMap.get(key).authors]);
+        booksArr.push([booksMap.get(key).thumbnail, key, booksMap.get(key).authors]);
       }
-      setBookcase(bookcaseData);
+      setBookData(booksArr);
     }
   };
 
   useEffect(() => {
-    getBookcase();
+    getBookshelf();
   }, []);
 
   return (
@@ -55,8 +56,8 @@ const Home = () => {
       <HomeNavbar/>
       <section className="bookcase">
         <div className="bookcase compartment">
-          {bookcase.map((data) => (
-            <BookCase thumbnail={data[0]} title={data[1]} key={data[1]} authors={data[2]}/>
+          {bookData.map((data) => (
+            <Bookshelf thumbnail={data[0]} title={data[1]} key={data[1]} authors={data[2]}/>
           ))}
         </div>
       </section>

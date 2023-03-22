@@ -1,10 +1,10 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const BookCase = ({ title, thumbnail, authors }) => {
+const Bookshelf = ({ title, thumbnail, authors }) => {
   const navigate = useNavigate();
   const goDrawer = () => {
-    navigate(`/drawer/${title}`, {
+    navigate(`/book/${title}`, {
       state: { title: title, authors: authors },
     });
   };
@@ -22,4 +22,4 @@ const BookCase = ({ title, thumbnail, authors }) => {
   );
 };
 
-export default BookCase;
+export default Bookshelf;

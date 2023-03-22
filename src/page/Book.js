@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { selectEmail } from 'redux/userSlice';
 
-const Drawer = () => {
+const Book = () => {
   const userEmail = useSelector(selectEmail);
   const userDataRef = dbService.collection(userEmail).doc('userData');
   const navigate = useNavigate();
@@ -28,6 +28,7 @@ const Drawer = () => {
       navigate(-1);
     }
   }
+
   return (
     <div>
       <MyHeader
@@ -51,18 +52,19 @@ const Drawer = () => {
           </div>
         }
       />
-      <section className="drawer">
-        <div className="drawer information">
+      <section className="book">
+        <div className="book information">
           <div>
             <span>{title}</span>
             <span>{authors}</span>
           </div>
         </div>
-        <div className="drawer sentencesWrapper">
+        <div className="book sentencesWrapper">
           <SentenceList title={title} />
         </div>
       </section>
     </div>
   );
 };
-export default Drawer;
+
+export default Book;
