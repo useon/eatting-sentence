@@ -1,40 +1,28 @@
 import { dbService } from 'myBase';
 import { useSelector } from 'react-redux';
 import { selectEmail } from 'redux/userSlice';
+import nowTime from 'utils/nowTime';
 
-const DrawerEditor = ({setAddDrawer}) => {
+const DrawerEditor = ({setAddDrawerActive}) => {
   const userEmail = useSelector(selectEmail);
   const userDataRef = dbService.collection(userEmail).doc('userData');
 
   const drawerHandle = async(event) => {
     event.preventDefault();
-    const prevDrawers = (
-      await userDataRef.collection('content').doc('drawer').get()
-      ).data().name;
-    setAddDrawer(false);
+    const prevData = await userDataRef.collection('drawers').get();
     const newDrawName = event.target.previousSibling.value;
-    addDrawerToDB(prevDrawers,newDrawName);
+    
+    addDrawerToDB(prevData, newDrawName);
+    setAddDrawerActive(false);
   }
 
-
-  const addDrawerToDB = (prevDrawers, newDrawName) => {
-    if(prevDrawers === undefined) {
-      userDataRef
-      .collection('content')
-      .doc('drawer')
-      .set({
-        name: [newDrawName],
-      })
-    } else {
-      if(!prevDrawers.includes(newDrawName)) {
-        userDataRef
-        .collection('content')
-        .doc('drawer')
-        .set({
-          name: [...prevDrawers, newDrawName],
-        });
-      }
-  }
+  const addDrawerToDB = (prevData, newDrawName) => {
+    userDataRef
+    .collection('drawers')
+    .doc(newDrawName)
+    .set({
+      registeredTime: nowTime(),
+    });
 }
 
   return (
