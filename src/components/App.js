@@ -5,9 +5,8 @@ import '../App.css';
 import IsLogIn from '../components/IsLogIn';
 import Book from 'page/Book';
 import Home from 'page/Home';
-import AddBook from 'page/AddBook';
-import AddSentence from 'page/AddSentence';
 import SignIn from 'page/SignIn';
+import AddContents from 'page/AddContents';
 
 function App() {
   return (
@@ -17,8 +16,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/signIn" element={<SignIn />} />
-          <Route path="/addBook" element={<AddBook />} />
-          <Route path="/addSentence" element={<AddSentence />} />
+          <Route path="/addContents" element={<AddContents />} />
           <Route path="/book/:id" element={<Book />} />
         </Routes>
       </div>

@@ -55,7 +55,7 @@ const Home = () => {
           </button>
         }
         rightChild={
-          <button onClick={() => navigate('/addBook')}>
+          <button onClick={() => navigate('/addContents')}>
             {'추가'}
           </button>
         }

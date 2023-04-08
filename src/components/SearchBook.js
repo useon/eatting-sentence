@@ -14,7 +14,7 @@ const kakaoSearch = (params) => {
   return KAKAO.get("/v3/search/book", { params })
 };
 
-const SearchBook = ({ addBookToState }) => {
+const SearchBook = ({ getBookInfo, setSearchActive, setBookTitle}) => {
   const [books, setBooks] = useState([]);
   const [query, setQuery] = useState('');
   const [checkArr, setCheckArr] = useState([]);
@@ -50,7 +50,9 @@ const SearchBook = ({ addBookToState }) => {
     const newArr = Array(books.length).fill(false);
     newArr[parseInt(id)] = true;
     setCheckArr(newArr);
-    addBookToState(title, authors, thumbnail);
+    getBookInfo(title, authors, thumbnail);
+    setSearchActive(false);
+    setBookTitle(title);
   }
 
   return (
@@ -64,7 +66,7 @@ const SearchBook = ({ addBookToState }) => {
             value={query}
             onChange={onTextUpdate}
           />
-          <button className='MyButton' >{'검색'}</button>
+          <button>{'검색'}</button>
         </form>
       </div>
       <ul className='SearchResult'>
