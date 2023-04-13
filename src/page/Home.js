@@ -11,40 +11,65 @@ import Drawer from 'components/Drawer';
 
 const Home = () => {
   const userEmail = useSelector(selectEmail);
+  const userDataRef = dbService.collection(userEmail).doc('userData');
+
   const navigate = useNavigate();
-  const [bookData, setBookData] = useState([]);
-  const [mode, setMode] = useState('bookshelf')
+  const [mode, setMode] = useState('bookshelf');
+  const [bookshelfData, setBookshelfData] = useState([]);
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = async() =>{
+    const sentencesSnapshot = (await userDataRef.collection('sentences').get()).docs
+    const sentencesList = [];
+    const bookInfoMap = new Map(); 
+    sentencesSnapshot.map((query) => sentencesList.push(query.id));
+
+    await Promise.all(sentencesList.map(async(document) => {
+      const data = (await userDataRef.collection('sentences').doc(document).get()).data();
+      bookInfoMap.set(data.registeredTime, {
+        title: data.title,
+        authors: data.authors,
+        thumbnail: data.thumbnail,
+        drawers: data.drawers,
+        })
+    }))
+    reprocesser(bookInfoMap);
+  }
+
+  const reprocesser = (bookInfoMap) => {
+    const sortedBookData = new Map([...bookInfoMap].sort((a, b) => b[0] - a[0]));
+    const nonOverlapping = new Map();
+    for(let [key, value] of sortedBookData) {
+        if(nonOverlapping.has(value.title) === false) {
+        nonOverlapping.set(value.title, {
+          authors: value.authors,
+          thumbnail: value.thumbnail,
+        })
+      }
+    }
+    setBookshelfData(nonOverlapping);
+  }
+
+  const paintBookshelf = () => {
+    const result = [];
+    for(let [key, value] of bookshelfData) {
+      result.push(<Bookshelf title={key} authors={value.authors} thumbnail={value.thumbnail}/>)
+    }
+    return result;
+  }
 
   const logOut = () => {
     authService.signOut();
     IsLogIn();
   };
 
-  const getBookshelf = async () => {
-    const books = await dbService.collection(userEmail).doc('userData').collection('Bookshelf').get();
-    const booksMap = new Map();
-    const booksArr = [];
-
-    books.forEach((document) => {
-      booksMap.set(document.id, document.data());
-    });
-
-    if (booksMap.size !== undefined) {
-      for (let key of booksMap.keys()) {
-        booksArr.push([booksMap.get(key).thumbnail, key, booksMap.get(key).authors]);
-      }
-      setBookData(booksArr);
-    }
-  };
-
-  useEffect(() => {
-    getBookshelf();
-  }, []);
-
   const modeHandler = (mode) => {
     if(mode === 'bookshelf') setMode('bookshelf');
     if(mode === 'drawer') setMode('drawer');
-  }
+  }            
 
   return (
     <div>
@@ -63,9 +88,7 @@ const Home = () => {
       <HomeNavbar modeHandler={modeHandler}/>
       <section className="">
         <div className="bookcase compartment">
-          {mode==='bookshelf'? bookData.map((data) => (
-            <Bookshelf thumbnail={data[0]} title={data[1]} key={data[1]} authors={data[2]}/>
-          )) : <Drawer/>}
+          {mode==='bookshelf' && bookshelfData.length !== 0 ? paintBookshelf() : <Drawer/>}
         </div>
       </section>
     </div>
