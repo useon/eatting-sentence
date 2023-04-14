@@ -33,10 +33,13 @@ const Home = () => {
 
     await Promise.all(sentencesList.map(async(document) => {
       const data = (await userDataRef.collection('sentences').doc(document).get()).data();
+      const sentence = (await userDataRef.collection('sentences').doc(document).get()).id;
+
       bookInfoMap.set(data.registeredTime, {
         title: data.title,
         authors: data.authors,
         thumbnail: data.thumbnail,
+        sentence: sentence,
         drawers: data.drawers,
         })
     }))
@@ -47,9 +50,11 @@ const Home = () => {
   const reprocesser = (bookInfoMap) => {
     const sortedBookData = new Map([...bookInfoMap].sort((a, b) => b[0] - a[0]));
     const nonOverlapping = new Map();
+
     for(let [key, value] of sortedBookData) {
-        if(nonOverlapping.has(value.title) === false) {
-        nonOverlapping.set(value.title, {
+        if(nonOverlapping.has(`${value.title} ${value.authors}`) === false) {
+        nonOverlapping.set(`${value.title} ${value.authors}`, {
+          title: value.title,
           authors: value.authors,
           thumbnail: value.thumbnail,
         })
@@ -61,7 +66,7 @@ const Home = () => {
   const paintBookshelf = () => {
     const result = [];
     for(let [key, value] of bookshelfData) {
-      result.push(<Bookshelf title={key} authors={value.authors} thumbnail={value.thumbnail}/>)
+      result.push(<Bookshelf title={value.title} authors={value.authors} thumbnail={value.thumbnail} />)
     }
     return result;
   }
