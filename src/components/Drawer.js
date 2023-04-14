@@ -1,11 +1,9 @@
-const Drawer =  () => {
-    
+const Drawer = ({drawer}) => {
   return (
     <div>
-      <p>서랍입니다.</p>
+      <p>{drawer}</p>
     </div>
   )
-
 }
 
 export default Drawer;

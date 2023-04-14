@@ -16,6 +16,7 @@ const Home = () => {
   const navigate = useNavigate();
   const [mode, setMode] = useState('bookshelf');
   const [bookshelfData, setBookshelfData] = useState([]);
+  const [drawersData, setDrawersData] = useState([]);
 
   useEffect(() => {
     getData();
@@ -23,9 +24,12 @@ const Home = () => {
 
   const getData = async() =>{
     const sentencesSnapshot = (await userDataRef.collection('sentences').get()).docs
+    const drawersSnapshot = (await userDataRef.collection('drawers').get()).docs
     const sentencesList = [];
+    const drawersList = [];
     const bookInfoMap = new Map(); 
     sentencesSnapshot.map((query) => sentencesList.push(query.id));
+    drawersSnapshot.map((query) => drawersList.push(query.id));
 
     await Promise.all(sentencesList.map(async(document) => {
       const data = (await userDataRef.collection('sentences').doc(document).get()).data();
@@ -37,6 +41,7 @@ const Home = () => {
         })
     }))
     reprocesser(bookInfoMap);
+    setDrawersData(drawersList);
   }
 
   const reprocesser = (bookInfoMap) => {
@@ -58,6 +63,14 @@ const Home = () => {
     for(let [key, value] of bookshelfData) {
       result.push(<Bookshelf title={key} authors={value.authors} thumbnail={value.thumbnail}/>)
     }
+    return result;
+  }
+
+  const paintDrawer = () => {
+    const result = [];
+    drawersData.map((drawer) => {
+      result.push(<Drawer drawer={drawer}/>)
+    })
     return result;
   }
 
@@ -88,7 +101,8 @@ const Home = () => {
       <HomeNavbar modeHandler={modeHandler}/>
       <section className="">
         <div className="bookcase compartment">
-          {mode==='bookshelf' && bookshelfData.length !== 0 ? paintBookshelf() : <Drawer/>}
+          {mode==='bookshelf' && paintBookshelf()}
+          {mode === 'drawer' && paintDrawer()}
         </div>
       </section>
     </div>
