@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Bookshelf = ({ title, thumbnail, authors, sentence }) => {
+const Bookshelf = ({ title, thumbnail, authors}) => {
   const navigate = useNavigate();
 
   const goBookpage = () => {

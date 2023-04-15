@@ -1,6 +1,6 @@
 import MyHeader from 'components/MyHeader';
 import SentenceList from 'components/SentenceList';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { dbService } from 'myBase';
 import { useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -13,20 +13,17 @@ const Book = () => {
   const location = useLocation();
   const title = location.state.title;
   const authors = location.state.authors;
+  const [sentenceData, setSentenceData] = useState([]);
   
-  const goAddSentence = () => {
-    navigate('/addSentence', { state: { title: title } });
-  };
+  useEffect(() => {
+    getBookData();
+  },[])
 
-  const removeBookToDB = async(element) => {
-    element.preventDefault();
-    if(window.confirm('이 책을 삭제하시겠습니까?')) {
-      userDataRef
-      .collection('Bookshelf')
-      .doc(title)
-      .delete();
-      navigate(-1);
-    }
+  const getBookData = async() => {
+    const data = (await userDataRef.collection('sentences').where('title', '==', title).where('authors', '==', authors).get()).docs;
+    const sentence = [];
+    data.map((query) => sentence.push(query.id));
+    setSentenceData(sentence);
   }
 
   return (
@@ -40,12 +37,10 @@ const Book = () => {
         rightChild={
           <div>
           <button
-            onClick={goAddSentence}
           >
             문장추가하기
           </button>
           <button
-            onClick={removeBookToDB}
           >
             삭제
           </button>
@@ -60,7 +55,7 @@ const Book = () => {
           </div>
         </div>
         <div className="book sentencesWrapper">
-          <SentenceList title={title} />
+          {sentenceData.map((sentence) => <SentenceList sentence={sentence}/>)}
         </div>
       </section>
     </div>
