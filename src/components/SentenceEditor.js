@@ -93,7 +93,6 @@ const SentenceEditor = () => {
     const sentence = event.target.previousSibling.previousSibling.previousSibling.children[1].value;
     const page = event.target.previousSibling.previousSibling.children[1].value;
     const selectedDrawer = selectedDrawerToState(event);
-    const regExp = /[0-9]/g;
 
     if(bookTitle === '') {
       submit = false;
@@ -107,7 +106,7 @@ const SentenceEditor = () => {
     } else {
       error.push(false);
     }
-    if(!(regExp.test(page))) {
+    if(isNaN(Number(page))) {
       submit = false;
       error.push(true);
     } else {
@@ -117,7 +116,6 @@ const SentenceEditor = () => {
     setErrorActive(error)
     if(submit) dataToDB({sentence, selectedDrawer, page});
   }
-
 
   return (
     <div className='sentenceEditor'>
