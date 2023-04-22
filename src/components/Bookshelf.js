@@ -6,7 +6,7 @@ const Bookshelf = ({ title, thumbnail, authors}) => {
 
   const goBookpage = () => {
     navigate(`/book/${title}`, {
-      state: { title: title, authors: authors },
+      state: { title: title, authors: authors, thumbnail: thumbnail },
     });
   };
 

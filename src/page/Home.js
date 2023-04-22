@@ -86,7 +86,13 @@ const Home = () => {
   const modeHandler = (mode) => {
     if(mode === 'bookshelf') setMode('bookshelf');
     if(mode === 'drawers') setMode('drawers');
-  }            
+  }
+
+  const goAddContents = () => {
+    navigate(`/addContents`, {
+      state: { settingBook: false },
+    })
+  }
 
   return (
     <div>
@@ -97,7 +103,7 @@ const Home = () => {
           </button>
         }
         rightChild={
-          <button onClick={() => navigate('/addContents')}>
+          <button onClick={goAddContents}>
             {'추가'}
           </button>
         }

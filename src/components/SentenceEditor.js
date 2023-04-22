@@ -7,7 +7,7 @@ import { selectEmail } from 'redux/userSlice';
 import { dbService } from 'myBase';
 import nowTime from 'utils/nowTime';
 
-const SentenceEditor = () => {
+const SentenceEditor = ({settingBook, settingBookInfo}) => {
   const userEmail = useSelector(selectEmail);
   const userDataRef = dbService.collection(userEmail).doc('userData');
   const navigate = useNavigate();
@@ -19,6 +19,9 @@ const SentenceEditor = () => {
   const [errorActive, setErrorActive] = useState([]);
 
   useEffect(() => {
+    if(settingBook) {
+      getBookInfo(settingBookInfo[0], settingBookInfo[1], settingBookInfo[2]);
+    }
     getToDrawer();
   }, [])
 
@@ -117,37 +120,73 @@ const SentenceEditor = () => {
     if(submit) dataToDB({sentence, selectedDrawer, page});
   }
 
-  return (
-    <div className='sentenceEditor'>
-      <div>
-        <p>책 검색</p>
-        <input placeholder='책을 검색하세요.' required onClick={() => setSearchActive(true)} value={bookTitle}/>
-        {errorActive[0] && <p>책을 입력해주세요.</p>}
-      </div>
-      <div>
-        {searchActive && <SearchBook getBookInfo={getBookInfo} setSearchActive={setSearchActive} setBookTitle={setBookTitle}/>}
-      </div>
-      <div>
-        <p>문장</p>
-        <textarea placeholder='문장을 입력해주세요.'></textarea>
-        {errorActive[1] && <p>문장을 입력해주세요.</p>}
-      </div>
-      <div>
-        <p>페이지</p>
-        <input type='text'/>
-        {errorActive[2] && <p>숫자만 입력해주세요.</p>}
-      </div>
-      <div>
+  if(settingBook) {
+    return (
+      <div className='sentenceEditor'>
         <div>
-          <p>서랍</p>
-          <div>{drawerList.length !== 0 && paintDrawer()}</div>
-          <button onClick={() => setAddDrawerActive(!addDrawerActive)}>새 서랍 추가</button>
+          <p>책</p>
+          <input placeholder='책을 검색하세요.' required onClick={() => setSearchActive(true)} value={settingBookInfo[0]}/>
+          {errorActive[0] && <p>책을 입력해주세요.</p>}
         </div>
-        {addDrawerActive && <DrawerEditor setAddDrawerActive={setAddDrawerActive}/>}
+        <div>
+          {searchActive && <SearchBook getBookInfo={getBookInfo} setSearchActive={setSearchActive} setBookTitle={setBookTitle}/>}
+        </div>
+        <div>
+          <p>문장</p>
+          <textarea placeholder='문장을 입력해주세요.'></textarea>
+          {errorActive[1] && <p>문장을 입력해주세요.</p>}
+        </div>
+        <div>
+          <p>페이지</p>
+          <input type='text'/>
+          {errorActive[2] && <p>숫자만 입력해주세요.</p>}
+        </div>
+        <div>
+          <div>
+            <p>서랍</p>
+            <div>{drawerList.length !== 0 && paintDrawer()}</div>
+            <button onClick={() => setAddDrawerActive(!addDrawerActive)}>새 서랍 추가</button>
+          </div>
+          {addDrawerActive && <DrawerEditor setAddDrawerActive={setAddDrawerActive}/>}
+        </div>
+        <button onClick={(event) => submitController(event)}>확인</button>
       </div>
-      <button onClick={(event) => submitController(event)}>확인</button>
-    </div>
-  )
+    )
+  }
+
+  if(settingBook === false) {
+    return (
+      <div className='sentenceEditor'>
+        <div>
+          <p>책 검색</p>
+          <input placeholder='책을 검색하세요.' required onClick={() => setSearchActive(true)} value={bookTitle}/>
+          {errorActive[0] && <p>책을 입력해주세요.</p>}
+        </div>
+        <div>
+          {searchActive && <SearchBook getBookInfo={getBookInfo} setSearchActive={setSearchActive} setBookTitle={setBookTitle}/>}
+        </div>
+        <div>
+          <p>문장</p>
+          <textarea placeholder='문장을 입력해주세요.'></textarea>
+          {errorActive[1] && <p>문장을 입력해주세요.</p>}
+        </div>
+        <div>
+          <p>페이지</p>
+          <input type='text'/>
+          {errorActive[2] && <p>숫자만 입력해주세요.</p>}
+        </div>
+        <div>
+          <div>
+            <p>서랍</p>
+            <div>{drawerList.length !== 0 && paintDrawer()}</div>
+            <button onClick={() => setAddDrawerActive(!addDrawerActive)}>새 서랍 추가</button>
+          </div>
+          {addDrawerActive && <DrawerEditor setAddDrawerActive={setAddDrawerActive}/>}
+        </div>
+        <button onClick={(event) => submitController(event)}>확인</button>
+      </div>
+    )
+  }
 }
 
 export default SentenceEditor;

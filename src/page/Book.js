@@ -13,6 +13,7 @@ const Book = () => {
   const location = useLocation();
   const title = location.state.title;
   const authors = location.state.authors;
+  const thumbnail = location.state.thumbnail;
   const [docSnapshot, setDocSnapshot] = useState([]);
   const [listData, setListData] = useState([]);
   const [senteceSorting, setSenteceSorting] = useState('페이지오름차순');
@@ -72,6 +73,12 @@ const Book = () => {
     }
   }
 
+  const goAddContents = () => {
+    navigate(`/addContents`, {
+      state: { settingTitle: title, settingAuthors: authors, settingThumbnail: thumbnail, settingBook: true },
+    })
+  }
+
   return (
     <div>
       <MyHeader
@@ -80,7 +87,7 @@ const Book = () => {
         }
         rightChild={
           <div>
-            <button>문장추가하기</button>
+            <button onClick={goAddContents}>문장추가하기</button>
             <button>삭제</button>
           </div>
         }
