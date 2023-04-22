@@ -38,7 +38,7 @@ const Book = () => {
     const sortedArray = [];
     if(senteceSorting.includes('페이지')) {
       docSnapshot.map((query) => {
-        sortedArray.push([query.data().page, [query.id, query.data().drawer, query.data().registeredTime]]);
+        sortedArray.push([query.data().page, [query.id, query.data().drawers, query.data().registeredTime]]);
       })
       sortedArray.sort((a, b) => a[0] - b[0]);
       if(senteceSorting === '페이지오름차순')
@@ -47,7 +47,7 @@ const Book = () => {
         setListData(sortedArray.reverse());
     } else {
       docSnapshot.map((query) => {
-        sortedArray.push([query.data().registeredTime, [query.id, query.data().page, query.data().drawer]]);
+        sortedArray.push([query.data().registeredTime, [query.id, query.data().page, query.data().drawers]]);
       })
       sortedArray.sort((a, b) => b[0] - a[0]);
       if(senteceSorting === '최신순')
@@ -61,12 +61,12 @@ const Book = () => {
     const result = [];
     if(senteceSorting.includes('페이지')) {
       listData.map((array) => {
-        result.push(<SentenceList sentence={array[1][0]} page={array[0]} drawer={array[1][1]} registeredTime={array[1][2]}/>);
+        result.push(<SentenceList type={'book'} sentence={array[1][0]} page={array[0]} drawer={array[1][1]} registeredTime={array[1][2]}/>);
       });
       return result;
     } else {
       listData.map((array) => {
-        result.push(<SentenceList sentence={array[1][0]} page={array[1][1]} drawer={array[1][2]} registeredTime={array[0]}/>)
+        result.push(<SentenceList type={'book'} sentence={array[1][0]} page={array[1][1]} drawer={array[1][2]} registeredTime={array[0]}/>)
       });
       return result;
     }
@@ -76,20 +76,12 @@ const Book = () => {
     <div>
       <MyHeader
         leftChild={
-          <button onClick={() => navigate(-1)}>
-          {'뒤로가기'}
-        </button>
+          <button onClick={() => navigate(-1)}>{'뒤로가기'}</button>
         }
         rightChild={
           <div>
-          <button
-          >
-            문장추가하기
-          </button>
-          <button
-          >
-            삭제
-          </button>
+            <button>문장추가하기</button>
+            <button>삭제</button>
           </div>
         }
       />
