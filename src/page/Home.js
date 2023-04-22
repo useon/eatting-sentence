@@ -6,8 +6,7 @@ import { authService, dbService } from 'myBase';
 import MyHeader from 'components/MyHeader';
 import Bookshelf from 'components/Bookshelf';
 import IsLogIn from 'components/IsLogIn';
-import HomeNavbar from 'components/HomeNavbar';
-import Drawer from 'components/Drawer';
+import Drawers from 'components/Drawers';
 
 const Home = () => {
   const userEmail = useSelector(selectEmail);
@@ -71,10 +70,10 @@ const Home = () => {
     return result;
   }
 
-  const paintDrawer = () => {
+  const paintDrawers = () => {
     const result = [];
     drawersData.map((drawer) => {
-      result.push(<Drawer drawer={drawer}/>)
+      result.push(<Drawers drawer={drawer}/>)
     })
     return result;
   }
@@ -86,7 +85,7 @@ const Home = () => {
 
   const modeHandler = (mode) => {
     if(mode === 'bookshelf') setMode('bookshelf');
-    if(mode === 'drawer') setMode('drawer');
+    if(mode === 'drawers') setMode('drawers');
   }            
 
   return (
@@ -103,11 +102,14 @@ const Home = () => {
           </button>
         }
       />
-      <HomeNavbar modeHandler={modeHandler}/>
+      <div>
+        <button onClick={() => modeHandler('bookshelf')}>책장</button>
+        <button onClick={() => modeHandler('drawers')}>서랍</button>
+      </div>
       <section className="">
         <div className="bookcase compartment">
-          {mode==='bookshelf' && paintBookshelf()}
-          {mode === 'drawer' && paintDrawer()}
+          {mode ==='bookshelf' && paintBookshelf()}
+          {mode === 'drawers' && paintDrawers()}
         </div>
       </section>
     </div>
