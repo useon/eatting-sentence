@@ -17,6 +17,8 @@ const Book = () => {
   const [docSnapshot, setDocSnapshot] = useState([]);
   const [listData, setListData] = useState([]);
   const [senteceSorting, setSenteceSorting] = useState('페이지오름차순');
+  const [editMode, setEditMode] = useState(false);
+  const [deleteSentence, setDeleteSentence] = useState('');
   
   useEffect(() => {
     getBookData();
@@ -25,6 +27,11 @@ const Book = () => {
   useEffect(() => {
     reprocesser();
   },[docSnapshot, senteceSorting]);
+
+  useEffect(() => {
+    deleteSentenceToDB();
+  }, [deleteSentence])
+
 
   const getBookData = async() => {
     const data = (await userDataRef.collection('sentences').where('title', '==', title).where('authors', '==', authors).get()).docs;
@@ -60,16 +67,31 @@ const Book = () => {
 
   const paintSentenceList = () => {
     const result = [];
-    if(senteceSorting.includes('페이지')) {
-      listData.map((array) => {
-        result.push(<SentenceList type={'book'} sentence={array[1][0]} page={array[0]} drawer={array[1][1]} registeredTime={array[1][2]}/>);
-      });
-      return result;
-    } else {
-      listData.map((array) => {
-        result.push(<SentenceList type={'book'} sentence={array[1][0]} page={array[1][1]} drawer={array[1][2]} registeredTime={array[0]}/>)
-      });
-      return result;
+    if(editMode === true) {
+      if(senteceSorting.includes('페이지')) {
+        listData.map((array) => {
+          result.push(<SentenceList type={'book'} edit={true} sentence={array[1][0]} page={array[0]} drawer={array[1][1]} registeredTime={array[1][2]} setDeleteSentence={setDeleteSentence}/>);
+        });
+        return result;
+      } else {
+        listData.map((array) => {
+          result.push(<SentenceList type={'book'} edit={true} sentence={array[1][0]} page={array[1][1]} drawer={array[1][2]} registeredTime={array[0]} setDeleteSentence={setDeleteSentence}/>)
+        });
+        return result;
+      }
+    } 
+    if(editMode === false) {
+      if(senteceSorting.includes('페이지')) {
+        listData.map((array) => {
+          result.push(<SentenceList type={'book'} edit={false} sentence={array[1][0]} page={array[0]} drawer={array[1][1]} registeredTime={array[1][2]} setDeleteSentence={false}/>);
+        });
+        return result;
+      } else {
+        listData.map((array) => {
+          result.push(<SentenceList type={'book'} edit={false} sentence={array[1][0]} page={array[1][1]} drawer={array[1][2]} registeredTime={array[0]} setDeleteSentence={false}/>)
+        });
+        return result;
+      }
     }
   }
 
@@ -77,6 +99,11 @@ const Book = () => {
     navigate(`/addContents`, {
       state: { settingTitle: title, settingAuthors: authors, settingThumbnail: thumbnail, settingBook: true },
     })
+  }
+
+  const deleteSentenceToDB = async() => {
+    await userDataRef.collection('sentences').doc(deleteSentence).delete();
+    await getBookData();
   }
 
   return (
@@ -88,7 +115,8 @@ const Book = () => {
         rightChild={
           <div>
             <button onClick={goAddContents}>문장추가하기</button>
-            <button>삭제</button>
+            {editMode && <button onClick={() => setEditMode(false)}>취소</button>}
+            {editMode === false && <button onClick={() => setEditMode(true)}>편집</button>}
           </div>
         }
       />
