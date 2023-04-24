@@ -19,7 +19,6 @@ const Book = () => {
   const [senteceSorting, setSenteceSorting] = useState('페이지오름차순');
   const [editMode, setEditMode] = useState(false);
   const [deleteSentence, setDeleteSentence] = useState('');
-  
   useEffect(() => {
     getBookData();
   },[]);
@@ -29,7 +28,7 @@ const Book = () => {
   },[docSnapshot, senteceSorting]);
 
   useEffect(() => {
-    deleteSentenceToDB();
+    if(deleteSentence !== '') deleteSentenceToDB();
   }, [deleteSentence])
 
 
@@ -70,12 +69,12 @@ const Book = () => {
     if(editMode === true) {
       if(senteceSorting.includes('페이지')) {
         listData.map((array) => {
-          result.push(<SentenceList type={'book'} edit={true} sentence={array[1][0]} page={array[0]} drawer={array[1][1]} registeredTime={array[1][2]} setDeleteSentence={setDeleteSentence}/>);
+          result.push(<SentenceList type={'book'} edit={true} title={title} authors={authors} sentence={array[1][0]} page={array[0]} drawer={array[1][1]} registeredTime={array[1][2]} setDeleteSentence={setDeleteSentence} thumbnail={thumbnail}/>);
         });
         return result;
       } else {
         listData.map((array) => {
-          result.push(<SentenceList type={'book'} edit={true} sentence={array[1][0]} page={array[1][1]} drawer={array[1][2]} registeredTime={array[0]} setDeleteSentence={setDeleteSentence}/>)
+          result.push(<SentenceList type={'book'} edit={true} title={title} authors={authors} sentence={array[1][0]} page={array[1][1]} drawer={array[1][2]} registeredTime={array[0]} setDeleteSentence={setDeleteSentence} thumbnail={thumbnail}/>)
         });
         return result;
       }
@@ -83,12 +82,12 @@ const Book = () => {
     if(editMode === false) {
       if(senteceSorting.includes('페이지')) {
         listData.map((array) => {
-          result.push(<SentenceList type={'book'} edit={false} sentence={array[1][0]} page={array[0]} drawer={array[1][1]} registeredTime={array[1][2]} setDeleteSentence={false}/>);
+          result.push(<SentenceList type={'book'} edit={false} title={title} authors={authors} sentence={array[1][0]} page={array[0]} drawer={array[1][1]} registeredTime={array[1][2]} setDeleteSentence={false} thumbnail={thumbnail}/>);
         });
         return result;
       } else {
         listData.map((array) => {
-          result.push(<SentenceList type={'book'} edit={false} sentence={array[1][0]} page={array[1][1]} drawer={array[1][2]} registeredTime={array[0]} setDeleteSentence={false}/>)
+          result.push(<SentenceList type={'book'} edit={false} title={title} authors={authors} sentence={array[1][0]} page={array[1][1]} drawer={array[1][2]} registeredTime={array[0]} setDeleteSentence={false} thumbnail={thumbnail}/>)
         });
         return result;
       }
@@ -97,7 +96,7 @@ const Book = () => {
 
   const goAddContents = () => {
     navigate(`/addContents`, {
-      state: { settingTitle: title, settingAuthors: authors, settingThumbnail: thumbnail, settingBook: true },
+      state: { settingTitle: title, settingAuthors: authors, settingThumbnail: thumbnail, mode: 'bookEntered' },
     })
   }
 

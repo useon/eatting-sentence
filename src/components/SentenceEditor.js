@@ -7,7 +7,7 @@ import { selectEmail } from 'redux/userSlice';
 import { dbService } from 'myBase';
 import nowTime from 'utils/nowTime';
 
-const SentenceEditor = ({settingBook, settingBookInfo}) => {
+const SentenceEditor = ({mode, settingInfo}) => {
   const userEmail = useSelector(selectEmail);
   const userDataRef = dbService.collection(userEmail).doc('userData');
   const navigate = useNavigate();
@@ -19,8 +19,8 @@ const SentenceEditor = ({settingBook, settingBookInfo}) => {
   const [errorActive, setErrorActive] = useState([]);
 
   useEffect(() => {
-    if(settingBook) {
-      getBookInfo(settingBookInfo[0], settingBookInfo[1], settingBookInfo[2]);
+    if(mode !== 'unEntered') {
+      getBookInfo(settingInfo[0], settingInfo[1], settingInfo[2]);
     }
     getToDrawer();
   }, [])
@@ -47,11 +47,25 @@ const SentenceEditor = ({settingBook, settingBookInfo}) => {
   }
 
   const paintDrawer = () => {
-    return (
-      drawerList.map((drawer) => (
-        <button onClick={(e) => selectHandler(e)} type='button' value={drawer} data-check={false}>{drawer}</button>
-      ))
-    )
+    if(mode === 'edit' && settingInfo[5].length > 0) {
+      const result = [];
+      drawerList.map((drawer) => {
+        settingInfo[5].map((item) => {
+          if(drawer === item) {
+            result.push(<button onClick={(e) => selectHandler(e)} type='button' value={drawer} data-check={true}>{drawer}</button>)
+          } else {
+            result.push(<button onClick={(e) => selectHandler(e)} type='button' value={drawer} data-check={false}>{drawer}</button>)
+          }
+        })
+      })
+      return result;
+    } else {
+      return (
+        drawerList.map((drawer) => (
+          <button onClick={(e) => selectHandler(e)} type='button' value={drawer} data-check={false}>{drawer}</button>
+        ))
+      )
+    }
   }
 
   const selectHandler = (e) => {
@@ -74,8 +88,11 @@ const SentenceEditor = ({settingBook, settingBookInfo}) => {
     return selectedDrawerArray;
   }
 
-  const dataToDB = ({sentence, selectedDrawer, page}) => {
-    userDataRef
+  const dataToDB = async ({sentence, selectedDrawer, page}) => {
+    if (mode === 'edit') {
+      await userDataRef.collection('sentences').doc(settingInfo[3]).delete();
+    }
+    await userDataRef
     .collection('sentences')
     .doc(sentence)
     .set({
@@ -117,15 +134,19 @@ const SentenceEditor = ({settingBook, settingBookInfo}) => {
     }
 
     setErrorActive(error)
-    if(submit) dataToDB({sentence, selectedDrawer, page});
+    if(mode === 'unEntered' && submit) {
+      dataToDB({sentence, selectedDrawer, page});
+    } 
+
   }
 
-  if(settingBook) {
+
+  if(mode === 'unEntered') {
     return (
       <div className='sentenceEditor'>
         <div>
-          <p>책</p>
-          <input placeholder='책을 검색하세요.' required onClick={() => setSearchActive(true)} value={settingBookInfo[0]}/>
+          <p>책 검색</p>
+          <input placeholder='책을 검색하세요.' required onClick={() => setSearchActive(true)} value={bookTitle}/>
           {errorActive[0] && <p>책을 입력해주세요.</p>}
         </div>
         <div>
@@ -153,13 +174,12 @@ const SentenceEditor = ({settingBook, settingBookInfo}) => {
       </div>
     )
   }
-
-  if(settingBook === false) {
+  if(mode === 'bookEntered') {
     return (
       <div className='sentenceEditor'>
         <div>
-          <p>책 검색</p>
-          <input placeholder='책을 검색하세요.' required onClick={() => setSearchActive(true)} value={bookTitle}/>
+          <p>책</p>
+          <input placeholder='책을 검색하세요.' required onClick={() => setSearchActive(true)} defaultValue={settingInfo[0]}/>
           {errorActive[0] && <p>책을 입력해주세요.</p>}
         </div>
         <div>
@@ -173,6 +193,39 @@ const SentenceEditor = ({settingBook, settingBookInfo}) => {
         <div>
           <p>페이지</p>
           <input type='text'/>
+          {errorActive[2] && <p>숫자만 입력해주세요.</p>}
+        </div>
+        <div>
+          <div>
+            <p>서랍</p>
+            <div>{drawerList.length !== 0 && paintDrawer()}</div>
+            <button onClick={() => setAddDrawerActive(!addDrawerActive)}>새 서랍 추가</button>
+          </div>
+          {addDrawerActive && <DrawerEditor setAddDrawerActive={setAddDrawerActive}/>}
+        </div>
+        <button onClick={(event) => submitController(event)}>확인</button>
+      </div>
+    )
+  }
+  if(mode === 'edit') {
+    return (
+      <div className='sentenceEditor'>
+        <div>
+          <p>책</p>
+          <input required onClick={() => setSearchActive(true)} defaultValue={settingInfo[0]}/>
+          {errorActive[0] && <p>책을 입력해주세요.</p>}
+        </div>
+        <div>
+          {searchActive && <SearchBook getBookInfo={getBookInfo} setSearchActive={setSearchActive} setBookTitle={setBookTitle}/>}
+        </div>
+        <div>
+          <p>문장</p>
+          <textarea defaultValue={settingInfo[3]}></textarea>
+          {errorActive[1] && <p>문장을 입력해주세요.</p>}
+        </div>
+        <div>
+          <p>페이지</p>
+          <input type='text' defaultValue={settingInfo[4]}/>
           {errorActive[2] && <p>숫자만 입력해주세요.</p>}
         </div>
         <div>

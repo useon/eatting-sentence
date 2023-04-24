@@ -8,12 +8,20 @@ const AddContents = () => {
   let settingTitle;
   let settingAuthors;
   let settingThumbnail;
-  const settingBook = location.state.settingBook;
+  let settingDrawer;
+  let settingSentence;
+  let settingPage;
+  const mode = location.state.mode;
 
-  if(settingBook) {
+  if(mode !== 'unEntered') {
     settingTitle = location.state.settingTitle;
     settingAuthors = location.state.settingAuthors;
     settingThumbnail = location.state.settingThumbnail;
+    if(mode === 'edit') {
+      settingSentence = location.state.settingSentence;
+      settingPage = location.state.settingPage;
+      settingDrawer = location.state.settingDrawer;
+    }
   }
 
   return (
@@ -24,8 +32,9 @@ const AddContents = () => {
       }
       />
       <section>
-        {settingBook && <SentenceEditor settingBook={settingBook} settingBookInfo={[settingTitle, settingAuthors, settingThumbnail]} />}
-        {settingBook === false && <SentenceEditor settingBook={settingBook} settingBookInfo= {[]} />}
+        {mode === 'unEntered' && <SentenceEditor mode={mode} settingInfo= {[]} />}
+        {mode === 'bookEntered' && <SentenceEditor mode={mode} settingInfo={[settingTitle, settingAuthors, settingThumbnail]} />}
+        {mode === 'edit' && <SentenceEditor mode={mode} settingInfo={[settingTitle, settingAuthors, settingThumbnail, settingSentence, settingPage, settingDrawer]} />}
       </section>
     </div>
   );

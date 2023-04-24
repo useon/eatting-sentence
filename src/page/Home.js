@@ -90,7 +90,7 @@ const Home = () => {
 
   const goAddContents = () => {
     navigate(`/addContents`, {
-      state: { settingBook: false },
+      state: { mode : 'unEntered' },
     })
   }
 
