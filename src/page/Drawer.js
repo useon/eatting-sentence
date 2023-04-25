@@ -16,6 +16,8 @@ const Drawer = () => {
   const [docSnapshot, setDocSnapshot] = useState([]);
   const [senteceSorting, setSenteceSorting] = useState('최신순');
   const [listData, setListData] = useState([]);
+  const [deleteSentence, setDeleteSentence] = useState('');
+  const [editMode, setEditMode] = useState(false);
 
   useEffect(() => {
     getData();
@@ -25,6 +27,10 @@ const Drawer = () => {
     reprocesser();
   }, [docSnapshot, senteceSorting]);
 
+  useEffect(() => {
+    if(deleteSentence !== '') deleteSentenceToDB();
+  }, [deleteSentence])
+
   const getData = async() => {
     const data = (await userDataRef.collection('sentences').where('drawers', 'array-contains', drawerName).get()).docs;
     setDocSnapshot(data);
@@ -33,7 +39,7 @@ const Drawer = () => {
   const reprocesser = () => {
     const sortedArray = [];
     docSnapshot.map((query) => {
-      sortedArray.push([query.data().registeredTime, [query.id, query.data().title, query.data().authors, query.data().page]]);
+      sortedArray.push([query.data().registeredTime, [query.id, query.data().title, query.data().authors, query.data().thumbnail, query.data().page, query.data().drawers]]);
     })
     sortedArray.sort((a, b) => b[0] - a[0]);
     if(senteceSorting === '최신순')
@@ -42,16 +48,34 @@ const Drawer = () => {
       setListData(sortedArray.reverse());
   }
 
+  const deleteSentenceToDB = async() => {
+    await userDataRef.collection('sentences').doc(deleteSentence).delete();
+    await getData();
+  }
+
   const selectHandler = (event) => {
     setSenteceSorting(event.target.value);
   }
 
   const paintSentenceList = () => {
     const result = [];
-    listData.map((array) => {
-      result.push(<SentenceList type={'drawer'} sentence={array[1][0]} title={array[1][1]} authors={array[1][2]} page={array[1][3]} registeredTime={array[0]}/>)
-    });
+    if(editMode === true) {
+      listData.map((array) => {
+        result.push(<SentenceList type={'drawer'} edit={true} title={array[1][1]} authors={array[1][2]} sentence={array[1][0]} page={array[1][4]} drawer={array[1][5]} registeredTime={array[0]} setDeleteSentence={setDeleteSentence} thumbnail={array[1][3]}/>);
+      });
+    } else {
+      listData.map((array) => {
+        result.push(<SentenceList type={'drawer'} edit={false} title={array[1][1]} authors={array[1][2]} sentence={array[1][0]} page={array[1][4]} drawer={array[1][5]} registeredTime={array[0]} setDeleteSentence={false} thumbnail={array[1][3]}/>);
+      });
+    }
+
     return result;
+  }
+
+  const goAddContents = () => {
+    navigate('/addContents', {
+      state: { mode : 'unEntered' },
+    })
   }
 
   return (
@@ -64,11 +88,12 @@ const Drawer = () => {
       }
       rightChild={
       <div>
-        <button>문장추가하기</button>
-        <button>삭제</button>
+        <button onClick={goAddContents}>문장추가하기</button>
+        {editMode && <button onClick={() => setEditMode(false)}>취소</button>}
+        {editMode === false && <button onClick={() => setEditMode(true)}>편집</button>}
       </div>
-    }
-    />
+      }
+      />
       <div>
         <select value={senteceSorting} onChange={selectHandler}>
           <option value='최신순'>최신순</option>

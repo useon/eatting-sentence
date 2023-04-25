@@ -6,6 +6,7 @@ const SentenceList = ({type, edit, sentence, page, drawer, registeredTime, title
   const navigate = useNavigate();
   const [modalActive, setModalActive] = useState(false);
   const [deleteConfirm, setDeleteConfirm] = useState(false);
+  
   useEffect(() => {
     if(setDeleteSentence !== false) {
       setDeleteSentence(sentence);
@@ -50,9 +51,10 @@ const SentenceList = ({type, edit, sentence, page, drawer, registeredTime, title
     if(edit) {
       return (
         <div className='sentenceList'>
+          {modalActive && <ConfirmModal setModalActive={setModalActive} setDeleteConfirm={setDeleteConfirm}/>}
           <div className='senteceList edit_wrapper'>
             <button onClick={() => setModalActive(true)}>삭제</button>
-            <button>수정</button>
+            <button onClick={goAddContents}>수정</button>
           </div>
           <div>
             <p>{title}</p>
