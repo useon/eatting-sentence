@@ -120,26 +120,31 @@ const SentenceEditor = ({mode, settingInfo}) => {
     } else {
       error.push(false);
     }
+
     if(sentence === '') {
       submit = false;
       error.push(true);
     } else {
       error.push(false);
     }
+
     if(isNaN(Number(page))) {
       submit = false;
       error.push(true);
     } else {
       error.push(false);
     }
+    setErrorActive(error);
 
-    setErrorActive(error)
-    if(mode === 'unEntered' && submit) {
-      dataToDB({sentence, selectedDrawer, page});
-    } 
-
+    if(submit) {
+      if(mode !== 'edit') {
+        dataToDB({sentence, selectedDrawer, page});
+      }
+      if(mode === 'edit' && settingInfo[3] !== sentence) {
+        dataToDB({sentence, selectedDrawer, page});
+      }
+    }
   }
-
 
   if(mode === 'unEntered') {
     return (
@@ -174,6 +179,7 @@ const SentenceEditor = ({mode, settingInfo}) => {
       </div>
     )
   }
+
   if(mode === 'bookEntered') {
     return (
       <div className='sentenceEditor'>
@@ -207,6 +213,7 @@ const SentenceEditor = ({mode, settingInfo}) => {
       </div>
     )
   }
+
   if(mode === 'edit') {
     return (
       <div className='sentenceEditor'>
