@@ -7,6 +7,7 @@ import MyHeader from 'components/MyHeader';
 import Bookshelf from 'components/Bookshelf';
 import Drawers from 'components/Drawers';
 import { persistor } from 'index';
+import logo from '../assets/임시로고.JPG'
 
 const Home = () => {
   const userEmail = useSelector(selectEmail);
@@ -78,6 +79,16 @@ const Home = () => {
     return result;
   }
 
+  const paintNodata = () => {
+    return (
+        <div>
+          <img src={logo} alt='로고'/>
+          <p>등록된 문장이 없어요</p>
+          <button onClick={goAddContents}>{'문장등록하기'}</button>
+        </div>
+    )
+  }
+
   const logOut = async() => {
     navigate('/signIn');
     await authService.signOut();
@@ -95,32 +106,43 @@ const Home = () => {
     })
   }
 
-  return (
-    <div>
-      <MyHeader
-        leftChild={
-          <button onClick={() => logOut()}>
-            {'로그아웃'}
-          </button>
-        }
-        rightChild={
-          <button onClick={goAddContents}>
-            {'추가'}
-          </button>
-        }
-      />
+  if(bookshelfData.size === 0) {
+    return (
       <div>
-        <button onClick={() => modeHandler('bookshelf')}>책장</button>
-        <button onClick={() => modeHandler('drawers')}>서랍</button>
+        <MyHeader leftChild={<button onClick={() => logOut()}>{'로그아웃'}</button>}/>
+        <section>
+          {paintNodata()}
+        </section>
       </div>
-      <section className="">
-        <div className="bookcase compartment">
-          {mode ==='bookshelf' && paintBookshelf()}
-          {mode === 'drawers' && paintDrawers()}
+    )
+  } else {
+    return (
+      <div>
+        <MyHeader
+          leftChild={
+            <button onClick={() => logOut()}>
+              {'로그아웃'}
+            </button>
+          }
+          rightChild={
+            <button onClick={goAddContents}>
+              {'문장등록하기'}
+            </button>
+          }
+        />
+        <div>
+          <button onClick={() => modeHandler('bookshelf')}>책장</button>
+          <button onClick={() => modeHandler('drawers')}>서랍</button>
         </div>
-      </section>
-    </div>
-  );
+        <section className="">
+          <div className="bookcase compartment">
+            {mode ==='bookshelf' && paintBookshelf()}
+            {mode === 'drawers' && paintDrawers()}
+          </div>
+        </section>
+      </div>
+    );
+  }
 };
 
 export default Home;
