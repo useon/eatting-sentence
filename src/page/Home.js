@@ -5,8 +5,8 @@ import { selectEmail } from 'redux/userSlice';
 import { authService, dbService } from 'myBase';
 import MyHeader from 'components/MyHeader';
 import Bookshelf from 'components/Bookshelf';
-import IsLogIn from 'components/IsLogIn';
 import Drawers from 'components/Drawers';
+import { persistor } from 'index';
 
 const Home = () => {
   const userEmail = useSelector(selectEmail);
@@ -78,9 +78,10 @@ const Home = () => {
     return result;
   }
 
-  const logOut = () => {
-    authService.signOut();
-    IsLogIn();
+  const logOut = async() => {
+    navigate('/signIn');
+    await authService.signOut();
+    await persistor.purge();
   };
 
   const modeHandler = (mode) => {
