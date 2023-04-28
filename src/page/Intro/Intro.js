@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
-import logo from '../assets/임시로고.JPG'
+import logo from '../../assets/images/임시로고.JPG'
 import { useNavigate } from 'react-router-dom';
+import { LogoContainer, LogoSize } from './IntroStyle';
 import { authService } from 'myBase';
 
 const Intro = () => {
@@ -19,16 +20,16 @@ const Intro = () => {
         if (user) {
           navigate('/home');
         } else {
-          navigate('/signIn');
+          navigate('/login');
         }
       });
-    }, 2000);
+    }, 3000);
   }
 
   return (
-    <div>
-      <img src={logo} alt='로고' />
-    </div>
+    <LogoContainer>
+      <LogoSize src={logo} alt='로고' />
+    </LogoContainer>
   )
 }
 

@@ -7,7 +7,7 @@ import MyHeader from 'components/MyHeader';
 import Bookshelf from 'components/Bookshelf';
 import Drawers from 'components/Drawers';
 import { persistor } from 'index';
-import logo from '../assets/임시로고.JPG'
+import logo from '../assets/images/임시로고.JPG'
 
 const Home = () => {
   const userEmail = useSelector(selectEmail);
@@ -90,7 +90,7 @@ const Home = () => {
   }
 
   const logOut = async() => {
-    navigate('/signIn');
+    navigate('/login');
     await authService.signOut();
     await persistor.purge();
   };
