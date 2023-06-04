@@ -1,18 +1,11 @@
 import { useEffect } from 'react';
-import logo from '../../assets/images/임시로고.JPG'
 import { useNavigate } from 'react-router-dom';
-import { LogoContainer, LogoSize } from './IntroStyle';
 import { authService } from 'myBase';
+import logo from 'assets/images/Logo.png';
+import * as Styled from './Intro.styles';
 
 const Intro = () => {
   const navigate = useNavigate();
-
-  useEffect(() => {
-    timeout();
-    return () => {
-      clearTimeout(timeout);
-    }
-  })
 
   const timeout = () => {
     setTimeout(() => {
@@ -24,13 +17,20 @@ const Intro = () => {
         }
       });
     }, 3000);
-  }
+  };
+
+  useEffect(() => {
+    timeout();
+    return () => {
+      clearTimeout(timeout);
+    };
+  });
 
   return (
-    <LogoContainer>
-      <LogoSize src={logo} alt='로고' />
-    </LogoContainer>
-  )
-}
+    <Styled.LogoContainer>
+      <Styled.LogoSize src={logo} alt='Sentence Eatting의 로고 이미지' />
+    </Styled.LogoContainer>
+  );
+};
 
 export default Intro;

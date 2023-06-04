@@ -10,15 +10,15 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action) => {
-      state.email = action.payload
+      state.email = action.payload;
     },
   },
   extraReducers: (builder) => {
     builder.addCase(PURGE, () => initialState);
-  }
+  },
 });
 
-export const {setUser} = userSlice.actions;
+export const { setUser } = userSlice.actions;
 export const selectEmail = (state) => state.user.email;
 
 export default userSlice.reducer;
