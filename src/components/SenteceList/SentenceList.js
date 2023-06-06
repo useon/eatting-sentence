@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ReactComponent as DeleteIcon } from 'assets/icons/Delete.svg';
 import { ReactComponent as EditIcon } from 'assets/icons/Edit.svg';
-import { ReactComponent as DrawersIcon } from 'assets/icons/Drawers.svg';
 import ConfirmModal from './components/ConfirmModal/ConfirmModal';
 import * as Styled from './SentenceList.styles';
 
@@ -72,22 +71,14 @@ const SentenceList = ({
           )}
           <Styled.SentenceBox>
             <Styled.Header>
-              <Styled.LeftArea>
-                <Styled.SentenceInfoText>
-                  P.
-                  {page}
-                </Styled.SentenceInfoText>
-              </Styled.LeftArea>
-              <Styled.RightArea>
-                <DrawersIcon />
-                <Styled.SentenceInfoText>{drawerName}</Styled.SentenceInfoText>
-              </Styled.RightArea>
+              <Styled.SentenceInfoText>{time}</Styled.SentenceInfoText>
             </Styled.Header>
             <Styled.BoxArticle>
-              <span>{sentence}</span>
+              {page !== 0 && <Styled.SentenceInfoText>p. {page}&nbsp;</Styled.SentenceInfoText>}
+              <Styled.Sentence>{sentence}</Styled.Sentence>
             </Styled.BoxArticle>
             <Styled.BoxFooter>
-              <Styled.SentenceInfoText>{time}</Styled.SentenceInfoText>
+              <Styled.SentenceInfoText>{drawerName}</Styled.SentenceInfoText>
             </Styled.BoxFooter>
           </Styled.SentenceBox>
         </Styled.ContentsArea>
@@ -97,22 +88,14 @@ const SentenceList = ({
       <Styled.ContentsArea>
         <Styled.SentenceBox>
           <Styled.Header>
-            <Styled.LeftArea>
-              <Styled.SentenceInfoText>
-                P.
-                {page}
-              </Styled.SentenceInfoText>
-            </Styled.LeftArea>
-            <Styled.RightArea>
-              <DrawersIcon />
-              <Styled.SentenceInfoText>{drawerName}</Styled.SentenceInfoText>
-            </Styled.RightArea>
+            <Styled.SentenceInfoText>{time}</Styled.SentenceInfoText>
           </Styled.Header>
           <Styled.BoxArticle>
-            <span>{sentence}</span>
+            {page !== 0 && <Styled.SentenceInfoText>p. {page}&nbsp;</Styled.SentenceInfoText>}
+            <Styled.Sentence>{sentence}</Styled.Sentence>
           </Styled.BoxArticle>
           <Styled.BoxFooter>
-            <Styled.SentenceInfoText>{time}</Styled.SentenceInfoText>
+            <Styled.SentenceInfoText>{drawerName}</Styled.SentenceInfoText>
           </Styled.BoxFooter>
         </Styled.SentenceBox>
       </Styled.ContentsArea>
@@ -135,18 +118,17 @@ const SentenceList = ({
           )}
           <Styled.SentenceBox>
             <Styled.Header>
-              <Styled.LeftArea>
-                <Styled.SentenceInfoText>{title}</Styled.SentenceInfoText>
-              </Styled.LeftArea>
-              <Styled.RightArea>
-                <Styled.SentenceInfoText>{page}</Styled.SentenceInfoText>
-              </Styled.RightArea>
+              <Styled.SentenceInfoText>{time}</Styled.SentenceInfoText>
             </Styled.Header>
             <Styled.BoxArticle>
-              <span>{sentence}</span>
+              <Styled.Sentence>{sentence}</Styled.Sentence>
             </Styled.BoxArticle>
             <Styled.BoxFooter>
-              <Styled.SentenceInfoText>{time}</Styled.SentenceInfoText>
+              {authors.length > 1 ? `${authors.join(', ')}` : `${authors}`}
+              {authors.length > 0 ? ` - ${title}` : title}
+              {page !== 0 && (
+                <Styled.SentenceInfoText>&nbsp;p.&nbsp;{page}</Styled.SentenceInfoText>
+              )}
             </Styled.BoxFooter>
           </Styled.SentenceBox>
         </Styled.ContentsArea>
@@ -156,21 +138,17 @@ const SentenceList = ({
       <Styled.ContentsArea>
         <Styled.SentenceBox>
           <Styled.Header>
-            <Styled.LeftArea>
-              <Styled.SentenceInfoText>{title}</Styled.SentenceInfoText>
-            </Styled.LeftArea>
-            <Styled.RightArea>
-              <Styled.SentenceInfoText>
-                p.
-                {page}
-              </Styled.SentenceInfoText>
-            </Styled.RightArea>
+            <Styled.SentenceInfoText>{time}</Styled.SentenceInfoText>
           </Styled.Header>
           <Styled.BoxArticle>
-            <span>{sentence}</span>
+            <Styled.Sentence>{sentence}</Styled.Sentence>
           </Styled.BoxArticle>
           <Styled.BoxFooter>
-            <Styled.SentenceInfoText>{time}</Styled.SentenceInfoText>
+            {authors.length > 1 ? `${authors.join(', ')}` : `${authors}`}
+            {authors.length > 0 ? ` - ${title}` : title}
+            {page !== 0 && (
+              <Styled.SentenceInfoText>&nbsp;&nbsp;p.&nbsp;{page}</Styled.SentenceInfoText>
+            )}
           </Styled.BoxFooter>
         </Styled.SentenceBox>
       </Styled.ContentsArea>

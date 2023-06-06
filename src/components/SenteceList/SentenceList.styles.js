@@ -18,7 +18,8 @@ export const SentenceBox = styled.div`
   display: grid;
   grid-template-rows: 2rem minmax(2rem, auto) 2rem;
   align-items: end;
-  margin-top: 4rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 `;
 
 export const Header = styled.header`
@@ -38,14 +39,12 @@ export const LeftArea = styled.div`
 
 export const SentenceInfoText = styled.span``;
 
-export const BoxArticle = styled.article`
-  width: 90%;
-  margin: 0 auto;
+export const Sentence = styled.span`
   font-size: 1.2rem;
+`;
+
+export const BoxArticle = styled.article`
   line-height: 2rem;
 `;
 
-export const BoxFooter = styled.footer`
-  display: flex;
-  justify-content: end;
-`;
+export const BoxFooter = styled.footer``;

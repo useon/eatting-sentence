@@ -37,7 +37,7 @@ const Drawer = () => {
     docSnapshot.forEach((query) => {
       sortedArray.push([
         query.data().registeredTime,
-        [query.id, query.data().title, query.data().page],
+        [query.id, query.data().title, query.data().page, query.data().authors],
       ]);
     });
     sortedArray.sort((a, b) => b[0] - a[0]);
@@ -73,6 +73,7 @@ const Drawer = () => {
             type='drawer'
             edit
             title={array[1][1]}
+            authors={array[1][3]}
             sentence={array[1][0]}
             page={array[1][2]}
             registeredTime={array[0]}
@@ -91,6 +92,7 @@ const Drawer = () => {
             type='drawer'
             edit={false}
             title={array[1][1]}
+            authors={array[1][3]}
             sentence={array[1][0]}
             page={array[1][2]}
             registeredTime={array[0]}
