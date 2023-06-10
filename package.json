@@ -1,8 +1,8 @@
 {
-  "name": "sentence_collection_note",
+  "homepage": "https://etting-sentence.netlify.app/",
+  "name": "etting-sentence",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://useon.github.io/sentence_collection_note",
   "dependencies": {
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",

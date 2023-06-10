@@ -12,7 +12,7 @@ import AddContents from 'page/AddContents/AddContents';
 import Home from 'page/Home/Home';
 
 const App = () => (
-  <BrowserRouter>
+  <BrowserRouter basename={process.env.PUBLIC_URL}>
     <Routes>
       <Route path='/' element={<Intro />} />
       <Route path='/home' element={<Home />} />
