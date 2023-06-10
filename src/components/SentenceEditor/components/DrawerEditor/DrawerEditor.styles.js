@@ -14,7 +14,7 @@ export const ModalOutside = styled.div`
 `;
 
 export const ModalWrapper = styled(WiredCard)`
-  width: 10%;
+  width: 50%;
   display: flex;
   position: relative;
   background-color: rgb(252, 252, 252);
@@ -24,6 +24,14 @@ export const ModalWrapper = styled(WiredCard)`
   padding: 30px;
   gap: 10px;
   overflow: hidden;
+
+  @media all and (min-width: 481px) and (max-width: 1024px) {
+    width: 30%;
+  }
+
+  @media all and (min-width: 1025px) {
+    width: 10%;
+  }
 `;
 
 export const Header = styled.header`

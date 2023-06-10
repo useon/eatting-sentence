@@ -4,10 +4,15 @@ import { WiredIconButton } from 'wired-elements-react/lib/WiredIconButton';
 import { WiredLink } from 'wired-elements-react/lib/WiredLink';
 
 export const Drawer = styled(WiredCard)`
-  width: 42%;
-  padding: 4%;
-  display: flex;
-  flex-direction: column;
+  width: 100%;
+  padding: 10%;
+
+  @media all and (min-width: 1025px) {
+    width: 42%;
+    padding: 4%;
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 export const NameTag = styled(WiredLink)`

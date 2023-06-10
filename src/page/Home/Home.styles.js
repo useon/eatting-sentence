@@ -13,10 +13,17 @@ export const ModeSelect = styled.div`
   justify-content: space-around;
   margin-bottom: 2%;
   width: 100%;
+  @media all and (min-width: 1025px) {
+    padding: 0.8rem;
+    margin-bottom: 1.5rem;
+  }
 `;
 
 export const ModeButtonWrapper = styled(WiredCard)`
   width: 50%;
+  @media all and (min-width: 1025px) {
+    padding: 0.8rem;
+  }
 `;
 
 export const ModeButton = styled.button`
@@ -32,9 +39,11 @@ export const Section = styled.section`
 `;
 
 export const BookList = styled.ul`
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 4%;
+  row-gap: 1rem;
+  padding-left: 3%;
 `;
 
 export const Article = styled.article`
@@ -43,7 +52,7 @@ export const Article = styled.article`
 `;
 
 export const Drawers = styled(WiredCard)`
-  width: 50%;
+  width: 70%;
 `;
 
 export const DrawerWrapper = styled.div`

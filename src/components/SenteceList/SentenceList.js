@@ -74,7 +74,9 @@ const SentenceList = ({
               <Styled.SentenceInfoText>{time}</Styled.SentenceInfoText>
             </Styled.Header>
             <Styled.BoxArticle>
-              {page !== 0 && <Styled.SentenceInfoText>p. {page}&nbsp;</Styled.SentenceInfoText>}
+              {page !== 0 && (
+                <Styled.SentenceInfoText>p.&nbsp;{page}&nbsp;</Styled.SentenceInfoText>
+              )}
               <Styled.Sentence>{sentence}</Styled.Sentence>
             </Styled.BoxArticle>
             <Styled.BoxFooter>
@@ -91,7 +93,7 @@ const SentenceList = ({
             <Styled.SentenceInfoText>{time}</Styled.SentenceInfoText>
           </Styled.Header>
           <Styled.BoxArticle>
-            {page !== 0 && <Styled.SentenceInfoText>p. {page}&nbsp;</Styled.SentenceInfoText>}
+            {page !== 0 && <Styled.SentenceInfoText>p.&nbsp;{page}&nbsp;</Styled.SentenceInfoText>}
             <Styled.Sentence>{sentence}</Styled.Sentence>
           </Styled.BoxArticle>
           <Styled.BoxFooter>

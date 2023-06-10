@@ -150,7 +150,7 @@ const SentenceEditor = ({ settingMode, settingInfo }) => {
 
   if (settingMode === 'unEntered') {
     return (
-      <Styled.Card elevation={2}>
+      <Styled.RightPage elevation={2}>
         {searchActive && (
           <SearchBook
             getBookInfo={getBookInfo}
@@ -160,10 +160,8 @@ const SentenceEditor = ({ settingMode, settingInfo }) => {
         )}
         <Styled.ListWrapper>
           <Styled.List>
-            <Styled.Item>
-              <Styled.ItemHeader>
-                <span>책검색</span>
-              </Styled.ItemHeader>
+            <Styled.Item className='titleLine'>
+              <span>*&nbsp;제목</span>
               <Styled.Input
                 placeholder='책을 검색하세요.'
                 onClick={() => setSearchActive(true)}
@@ -172,44 +170,36 @@ const SentenceEditor = ({ settingMode, settingInfo }) => {
               />
             </Styled.Item>
             {errorActive.title && errorMessage('책을 입력해주세요.')}
-            <Styled.Divider />
           </Styled.List>
           <Styled.List>
-            <Styled.Item>
-              <Styled.ItemHeader>
-                <span>문장</span>
-              </Styled.ItemHeader>
-              <Styled.TextAreaWrapper>
-                <Styled.TextArea
-                  placeholder='문장을 입력해주세요.'
-                  onChange={(event) => handlerUserInput(event, 'sentence')}
-                />
-              </Styled.TextAreaWrapper>
+            <Styled.Item className='sentenceLine'>
+              <span>*&nbsp;문장</span>
+              <Styled.TextArea
+                rows={4}
+                placeholder='문장을 입력해주세요.'
+                onChange={(event) => handlerUserInput(event, 'sentence')}
+              />
             </Styled.Item>
             {errorActive.sentence && errorMessage('문장을 입력해주세요.')}
-            <Styled.Divider />
           </Styled.List>
           <Styled.List>
-            <Styled.Item>
-              <Styled.ItemHeader>
-                <span>페이지</span>
-              </Styled.ItemHeader>
+            <Styled.Item className='pageLine'>
+              <span>페이지</span>
               <Styled.Input
                 placeholder='페이지를 입력해주세요.'
                 onChange={(event) => handlerUserInput(event, 'page')}
               />
             </Styled.Item>
             {errorActive.page && errorMessage('숫자만 입력해주세요.')}
-            <Styled.Divider />
           </Styled.List>
           <Styled.List>
-            <Styled.Item>
-              <Styled.ItemHeader>
-                <span>서랍</span>
-                <button type='button' onClick={() => setAddDrawerActive(!addDrawerActive)}>
-                  <PlusIcon />
-                </button>
-              </Styled.ItemHeader>
+            <Styled.AddDrawerBtnWrapper>
+              <button type='button' onClick={() => setAddDrawerActive(!addDrawerActive)}>
+                <PlusIcon />
+              </button>
+            </Styled.AddDrawerBtnWrapper>
+            <Styled.Item className='drawerBtnLine'>
+              <span>서랍</span>
               <Styled.DrawerBtnWrapper ref={drawerRef}>
                 {allDrawers.length > 0 && (
                   <DrawerList
@@ -221,19 +211,18 @@ const SentenceEditor = ({ settingMode, settingInfo }) => {
               </Styled.DrawerBtnWrapper>
               {addDrawerActive && <DrawerEditor setAddDrawerActive={setAddDrawerActive} />}
             </Styled.Item>
-            <Styled.Divider />
           </Styled.List>
+          <Styled.SubmitBtnWrapper>
+            <Styled.SubmitBtn onClick={(event) => submitController(event)}>확인</Styled.SubmitBtn>
+          </Styled.SubmitBtnWrapper>
         </Styled.ListWrapper>
-        <Styled.SubmitBtnWrapper>
-          <Styled.SubmitBtn onClick={(event) => submitController(event)}>확인</Styled.SubmitBtn>
-        </Styled.SubmitBtnWrapper>
-      </Styled.Card>
+      </Styled.RightPage>
     );
   }
 
   if (settingMode === 'bookEntered') {
     return (
-      <Styled.Card elevation={2}>
+      <Styled.RightPage elevation={2}>
         {searchActive && (
           <SearchBook
             getBookInfo={getBookInfo}
@@ -243,10 +232,8 @@ const SentenceEditor = ({ settingMode, settingInfo }) => {
         )}
         <Styled.ListWrapper>
           <Styled.List>
-            <Styled.Item>
-              <Styled.ItemHeader>
-                <span>책검색</span>
-              </Styled.ItemHeader>
+            <Styled.Item className='titleLine'>
+              <span>*&nbsp;제목</span>
               <Styled.Input
                 placeholder='책을 검색하세요.'
                 onClick={() => setSearchActive(true)}
@@ -255,45 +242,36 @@ const SentenceEditor = ({ settingMode, settingInfo }) => {
               />
             </Styled.Item>
             {errorActive.title && errorMessage('책을 입력해주세요.')}
-            <Styled.Divider />
           </Styled.List>
           <Styled.List>
-            <Styled.Item>
-              <Styled.ItemHeader>
-                <span>문장</span>
-              </Styled.ItemHeader>
-              <Styled.TextAreaWrapper>
-                <Styled.TextArea
-                  placeholder='문장을 입력해주세요.'
-                  rows='10'
-                  onChange={(event) => handlerUserInput(event, 'sentence')}
-                />
-              </Styled.TextAreaWrapper>
+            <Styled.Item className='sentenceLine'>
+              <span>*&nbsp;문장</span>
+              <Styled.TextArea
+                rows={4}
+                placeholder='문장을 입력해주세요.'
+                onChange={(event) => handlerUserInput(event, 'sentence')}
+              />
             </Styled.Item>
             {errorActive.sentence && errorMessage('문장을 입력해주세요.')}
-            <Styled.Divider />
           </Styled.List>
           <Styled.List>
-            <Styled.Item>
-              <Styled.ItemHeader>
-                <span>페이지</span>
-              </Styled.ItemHeader>
+            <Styled.Item className='pageLine'>
+              <span>페이지</span>
               <Styled.Input
                 placeholder='페이지를 입력해주세요.'
                 onChange={(event) => handlerUserInput(event, 'page')}
               />
             </Styled.Item>
             {errorActive.page && errorMessage('숫자만 입력해주세요.')}
-            <Styled.Divider />
           </Styled.List>
           <Styled.List>
-            <Styled.Item>
-              <Styled.ItemHeader>
-                <span>서랍</span>
-                <button type='button' onClick={() => setAddDrawerActive(!addDrawerActive)}>
-                  <PlusIcon />
-                </button>
-              </Styled.ItemHeader>
+            <Styled.AddDrawerBtnWrapper>
+              <button type='button' onClick={() => setAddDrawerActive(!addDrawerActive)}>
+                <PlusIcon />
+              </button>
+            </Styled.AddDrawerBtnWrapper>
+            <Styled.Item className='drawerBtnLine'>
+              <span>서랍</span>
               <Styled.DrawerBtnWrapper ref={drawerRef}>
                 {allDrawers.length > 0 && (
                   <DrawerList
@@ -305,19 +283,18 @@ const SentenceEditor = ({ settingMode, settingInfo }) => {
               </Styled.DrawerBtnWrapper>
               {addDrawerActive && <DrawerEditor setAddDrawerActive={setAddDrawerActive} />}
             </Styled.Item>
-            <Styled.Divider />
           </Styled.List>
+          <Styled.SubmitBtnWrapper>
+            <Styled.SubmitBtn onClick={(event) => submitController(event)}>확인</Styled.SubmitBtn>
+          </Styled.SubmitBtnWrapper>
         </Styled.ListWrapper>
-        <Styled.SubmitBtnWrapper>
-          <Styled.SubmitBtn onClick={(event) => submitController(event)}>확인</Styled.SubmitBtn>
-        </Styled.SubmitBtnWrapper>
-      </Styled.Card>
+      </Styled.RightPage>
     );
   }
 
   if (settingMode === 'edit') {
     return (
-      <Styled.Card elevation={2}>
+      <Styled.RightPage elevation={2}>
         {searchActive && (
           <SearchBook
             getBookInfo={getBookInfo}
@@ -327,10 +304,8 @@ const SentenceEditor = ({ settingMode, settingInfo }) => {
         )}
         <Styled.ListWrapper>
           <Styled.List>
-            <Styled.Item>
-              <Styled.ItemHeader>
-                <span>책검색</span>
-              </Styled.ItemHeader>
+            <Styled.Item className='titleLine'>
+              <span>*&nbsp;제목</span>
               <Styled.Input
                 placeholder='책을 검색하세요.'
                 onClick={() => setSearchActive(true)}
@@ -339,47 +314,38 @@ const SentenceEditor = ({ settingMode, settingInfo }) => {
               />
             </Styled.Item>
             {errorActive.title && errorMessage('책을 입력해주세요.')}
-            <Styled.Divider />
           </Styled.List>
           <Styled.List>
-            <Styled.Item>
-              <Styled.ItemHeader>
-                <span>문장</span>
-              </Styled.ItemHeader>
-              <Styled.TextAreaWrapper>
-                <Styled.TextArea
-                  placeholder='문장을 입력해주세요.'
-                  rows='10'
-                  onChange={(event) => handlerUserInput(event, 'sentence')}
-                  value={userInput.sentence}
-                />
-              </Styled.TextAreaWrapper>
+            <Styled.Item className='sentenceLine'>
+              <span>*&nbsp;문장</span>
+              <Styled.TextArea
+                rows={4}
+                placeholder='문장을 입력해주세요.'
+                onChange={(event) => handlerUserInput(event, 'sentence')}
+                value={userInput.sentence}
+              />
             </Styled.Item>
             {errorActive.sentence && errorMessage('문장을 입력해주세요.')}
-            <Styled.Divider />
           </Styled.List>
           <Styled.List>
-            <Styled.Item>
-              <Styled.ItemHeader>
-                <span>페이지</span>
-              </Styled.ItemHeader>
+            <Styled.Item className='pageLine'>
+              <span>페이지</span>
               <Styled.Input
                 placeholder='페이지를 입력해주세요.'
-                value={userInput.page !== undefined ? userInput.page : ''}
                 onChange={(event) => handlerUserInput(event, 'page')}
+                value={userInput.page !== undefined ? userInput.page : ''}
               />
             </Styled.Item>
             {errorActive.page && errorMessage('숫자만 입력해주세요.')}
-            <Styled.Divider />
           </Styled.List>
           <Styled.List>
-            <Styled.Item>
-              <Styled.ItemHeader>
-                <span>서랍</span>
-                <button type='button' onClick={() => setAddDrawerActive(!addDrawerActive)}>
-                  <PlusIcon />
-                </button>
-              </Styled.ItemHeader>
+            <Styled.AddDrawerBtnWrapper>
+              <button type='button' onClick={() => setAddDrawerActive(!addDrawerActive)}>
+                <PlusIcon />
+              </button>
+            </Styled.AddDrawerBtnWrapper>
+            <Styled.Item className='drawerBtnLine'>
+              <span>서랍</span>
               <Styled.DrawerBtnWrapper ref={drawerRef}>
                 {allDrawers.length > 0 && (
                   <DrawerList
@@ -391,13 +357,12 @@ const SentenceEditor = ({ settingMode, settingInfo }) => {
               </Styled.DrawerBtnWrapper>
               {addDrawerActive && <DrawerEditor setAddDrawerActive={setAddDrawerActive} />}
             </Styled.Item>
-            <Styled.Divider />
           </Styled.List>
+          <Styled.SubmitBtnWrapper>
+            <Styled.SubmitBtn onClick={(event) => submitController(event)}>확인</Styled.SubmitBtn>
+          </Styled.SubmitBtnWrapper>
         </Styled.ListWrapper>
-        <Styled.SubmitBtnWrapper>
-          <Styled.SubmitBtn onClick={(event) => submitController(event)}>확인</Styled.SubmitBtn>
-        </Styled.SubmitBtnWrapper>
-      </Styled.Card>
+      </Styled.RightPage>
     );
   }
 };

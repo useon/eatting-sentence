@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import SentenceEditor from 'components/SentenceEditor/SentenceEditor';
 import { Header, Note } from 'styles/Shared/shared';
+import logo from 'assets/images/Logo.png';
 import { ReactComponent as BackIcon } from 'assets/icons/Back.svg';
 import { css } from '@emotion/react';
 import * as Styled from './AddContents.styles';
@@ -41,6 +42,9 @@ const AddContents = () => {
         </button>
       </Header>
       <Styled.Section>
+        <Styled.LeftPage elevation={5}>
+          <img src={logo} alt='로고' />
+        </Styled.LeftPage>
         {mode === 'unEntered' && <SentenceEditor settingMode={mode} settingInfo={{}} />}
         {mode === 'bookEntered' && (
           <SentenceEditor

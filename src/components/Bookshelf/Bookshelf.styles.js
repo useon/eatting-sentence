@@ -1,8 +1,22 @@
 import styled from '@emotion/styled';
 
 export const BookWrapper = styled.li`
+  width: 29%;
+  border-bottom: none;
+  padding: 0;
   border-bottom: 0.2rem solid #ebebeb;
-  padding: 10%;
+
+  img {
+    width: 100%;
+  }
+
+  @media all and (min-width: 481px) and (max-width: 1024px) {
+    width: 16%;
+  }
+
+  @media all and (min-width: 1025px) {
+    width: 13%;
+  }
 `;
 
 export const Thumbnail = styled.img`

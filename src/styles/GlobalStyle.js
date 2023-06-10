@@ -9,8 +9,15 @@ const style = css`
     font-style: normal;
   }
   #root {
-    width: 80vw;
-    height: 100vh;
+    width: 90vw;
+
+    @media all and (min-width: 481px) and (max-width: 1024px) {
+      width: 70vw;
+    }
+
+    @media all and (min-width: 1025px) {
+      width: 60vw;
+    }
   }
   html {
     font-family: 'NanumSquareNeo-Variable';
@@ -57,7 +64,6 @@ const style = css`
     justify-content: center;
     min-height: 100vh;
     margin: 0px;
-    padding: 0 10% 0 10%;
   }
 `;
 

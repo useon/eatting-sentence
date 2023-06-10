@@ -44,7 +44,7 @@ const DrawerEditor = ({ setAddDrawerActive }) => {
           </button>
         </Styled.Header>
         <Styled.Contents>
-          <Styled.Input ref={inputRef} placeholder='새 서랍의 이름을 입력해주세요.' />
+          <Styled.Input ref={inputRef} placeholder='서랍의 이름을 입력해주세요.' />
           <Styled.ButtonWrapper>
             <Styled.Button onClick={(event) => drawerHandle(event)}>확인</Styled.Button>
           </Styled.ButtonWrapper>

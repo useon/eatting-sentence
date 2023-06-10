@@ -14,7 +14,7 @@ export const EditBox = styled.div`
 `;
 
 export const SentenceBox = styled.div`
-  width: 80%;
+  width: 100%;
   display: grid;
   grid-template-rows: 2rem minmax(2rem, auto) 2rem;
   align-items: end;

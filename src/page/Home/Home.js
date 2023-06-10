@@ -9,7 +9,7 @@ import Drawers from 'components/Drawers/Drawers';
 import logo from 'assets/images/Logo.png';
 import { ReactComponent as LogoutIcon } from 'assets/icons/Logout.svg';
 import { ReactComponent as PlusIcon } from 'assets/icons/Plus.svg';
-import { Header } from 'styles/Shared/shared';
+import { Header, Note } from 'styles/Shared/shared';
 import * as Styled from './Home.styles';
 
 const Home = () => {
@@ -116,14 +116,14 @@ const Home = () => {
 
   if (bookshelfData.size === 0) {
     return (
-      <>
+      <Note>
         <Header>
           <button type='button' onClick={() => logOut()}>
             <LogoutIcon />
           </button>
         </Header>
         <section>{paintNodata()}</section>
-      </>
+      </Note>
     );
   }
   return (

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useEffect, useRef, useState } from 'react';
 import { ReactComponent as CancelIcon } from 'assets/icons/Cancel.svg';
+import { ReactComponent as SearchIcon } from 'assets/icons/Search.svg';
 import SearchResult from './components/SearchResult/SearchResult';
 import * as Styled from './SearchBook.styles';
 import Pagenate from './components/Pagenate/Pagenate';
@@ -117,13 +118,18 @@ const SearchBook = ({ getBookInfo, setSearchActive, setBookTitle }) => {
                 submitKeyWord(e);
               }}
             >
-              <Styled.Input
-                type='search'
-                ref={searchInput}
-                placeholder='검색어를 입력해주세요.'
-                value={query}
-                onChange={onTextUpdate}
-              />
+              <Styled.SearchBar>
+                <Styled.Input
+                  type='search'
+                  ref={searchInput}
+                  placeholder='검색어를 입력해주세요.'
+                  value={query}
+                  onChange={onTextUpdate}
+                />
+                <button type='button' onClick={(e) => submitKeyWord(e)}>
+                  <SearchIcon />
+                </button>
+              </Styled.SearchBar>
               <Styled.Divider />
             </Styled.SearchForm>
           </Styled.SearchBox>

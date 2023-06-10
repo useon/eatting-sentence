@@ -27,8 +27,19 @@ export const SaerchWrapper = styled(WiredCard)`
 `;
 
 export const Modal = styled.div`
-  width: 30vw;
-  height: 80vh;
+  width: 70vw;
+  height: 70vh;
+  overflow: auto;
+
+  @media all and (min-width: 481px) and (max-width: 1024px) {
+    width: 60vw;
+    height: 60vh;
+  }
+
+  @media all and (min-width: 1025px) {
+    width: 30vw;
+    height: 80vh;
+  }
 `;
 
 export const SearchClose = styled.div`
@@ -41,6 +52,10 @@ export const SearchForm = styled.form`
   width: 80%;
   border-bottom: 1px solid black;
   margin: 0 auto;
+`;
+
+export const SearchBar = styled.div`
+  display: flex;
 `;
 
 export const Input = styled.input`

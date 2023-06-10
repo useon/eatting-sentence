@@ -20,7 +20,6 @@ export const Input = styled(WiredInput)`
 export const Form = styled.form`
   display: flex;
   flex-direction: column;
-  width: 30%;
 `;
 
 export const WelcomeText = styled.span`

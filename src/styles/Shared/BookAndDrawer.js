@@ -40,8 +40,12 @@ export const Authors = styled.span`
 `;
 
 export const SentencesWrapper = styled.div`
-  width: 50%;
+  width: 80%;
   display: flex;
   align-items: center;
   flex-direction: column;
+
+  @media all and (min-width: 1025px) {
+    width: 60%;
+  }
 `;
