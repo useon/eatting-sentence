@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.js": "/etting-sentence/static/js/main.e1f5ef9e.js",
+    "main.js": "/etting-sentence/static/js/main.e6776b63.js",
     "static/media/Logo.png": "/etting-sentence/static/media/Logo.214c7d6d152b00d0578c.png",
     "static/media/Back.svg": "/etting-sentence/static/media/Back.fb5a0a78ab28fea78e88821025d2faa6.svg",
     "static/media/Logout.svg": "/etting-sentence/static/media/Logout.3d416233949be397c2cf53837aea708f.svg",
@@ -12,6 +12,6 @@
     "index.html": "/etting-sentence/index.html"
   },
   "entrypoints": [
-    "static/js/main.e1f5ef9e.js"
+    "static/js/main.e6776b63.js"
   ]
 }
