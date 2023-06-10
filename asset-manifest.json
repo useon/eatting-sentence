@@ -1,13 +1,17 @@
 {
   "files": {
-    "main.css": "/sentence_collection_note/static/css/main.5ee166f2.css",
-    "main.js": "/sentence_collection_note/static/js/main.dee084f8.js",
-    "index.html": "/sentence_collection_note/index.html",
-    "main.5ee166f2.css.map": "/sentence_collection_note/static/css/main.5ee166f2.css.map",
-    "main.dee084f8.js.map": "/sentence_collection_note/static/js/main.dee084f8.js.map"
+    "main.js": "/etting-sentence/static/js/main.e1f5ef9e.js",
+    "static/media/Logo.png": "/etting-sentence/static/media/Logo.214c7d6d152b00d0578c.png",
+    "static/media/Back.svg": "/etting-sentence/static/media/Back.fb5a0a78ab28fea78e88821025d2faa6.svg",
+    "static/media/Logout.svg": "/etting-sentence/static/media/Logout.3d416233949be397c2cf53837aea708f.svg",
+    "static/media/Search.svg": "/etting-sentence/static/media/Search.10bc5133db0cbab3aafcfe5f6a7282eb.svg",
+    "static/media/Edit.svg": "/etting-sentence/static/media/Edit.51014d980cf102a89fe655e53c04049e.svg",
+    "static/media/Cancel.svg": "/etting-sentence/static/media/Cancel.2f6ef3b02944c2197eeee9f39d8242ec.svg",
+    "static/media/Delete.svg": "/etting-sentence/static/media/Delete.296b952ddf2039cb2d3dec4af8a63e01.svg",
+    "static/media/Plus.svg": "/etting-sentence/static/media/Plus.02f12bc31a68913d8a96f3e5ca7f5d2e.svg",
+    "index.html": "/etting-sentence/index.html"
   },
   "entrypoints": [
-    "static/css/main.5ee166f2.css",
-    "static/js/main.dee084f8.js"
+    "static/js/main.e1f5ef9e.js"
   ]
 }
