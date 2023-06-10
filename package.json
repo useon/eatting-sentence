@@ -26,10 +26,8 @@
     "wired-elements-react": "^0.1.5"
   },
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
