@@ -39,6 +39,7 @@ const LogIn = () => {
       await signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
         const user = userCredential.user;
         dispatch(setUser(email));
+        navigate('/home');
       });
     } catch {
       setError('아이디 또는 비밀번호를 다시 확인해주세요');
