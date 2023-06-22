@@ -20,7 +20,7 @@
     "react-router-dom": "^6.13.0",
     "react-scripts": "^5.0.1",
     "redux": "^4.2.1",
-    "roughjs": "^4.5.2",
+    "roughjs": "^4.4.5",
     "web-vitals": "^2.1.4",
     "wired-elements": "^3.0.0-rc.6",
     "wired-elements-react": "^0.1.5"
