@@ -59,10 +59,10 @@ const SentenceList = ({
       return (
         <Styled.ContentsArea>
           <Styled.EditBox>
-            <button onClick={() => setModalActive(true)} type='button'>
+            <button onClick={() => setModalActive(true)} type='button' title='문장삭제'>
               <DeleteIcon />
             </button>
-            <button onClick={goAddContents} type='button'>
+            <button onClick={goAddContents} type='button' title='문장수정'>
               <EditIcon />
             </button>
           </Styled.EditBox>
@@ -108,10 +108,10 @@ const SentenceList = ({
       return (
         <Styled.ContentsArea>
           <Styled.EditBox>
-            <button onClick={() => setModalActive(true)} type='button'>
+            <button onClick={() => setModalActive(true)} type='button' title='문장삭제'>
               <DeleteIcon />
             </button>
-            <button onClick={goAddContents} type='button'>
+            <button onClick={goAddContents} type='button' title='문장수정'>
               <EditIcon />
             </button>
           </Styled.EditBox>

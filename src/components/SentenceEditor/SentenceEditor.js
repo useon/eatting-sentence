@@ -194,12 +194,16 @@ const SentenceEditor = ({ settingMode, settingInfo }) => {
           </Styled.List>
           <Styled.List>
             <Styled.AddDrawerBtnWrapper>
-              <button type='button' onClick={() => setAddDrawerActive(!addDrawerActive)}>
+              <span>서랍</span>
+              <button
+                type='button'
+                onClick={() => setAddDrawerActive(!addDrawerActive)}
+                title='서랍추가'
+              >
                 <PlusIcon />
               </button>
             </Styled.AddDrawerBtnWrapper>
             <Styled.Item className='drawerBtnLine'>
-              <span>서랍</span>
               <Styled.DrawerBtnWrapper ref={drawerRef}>
                 {allDrawers.length > 0 && (
                   <DrawerList
@@ -266,12 +270,16 @@ const SentenceEditor = ({ settingMode, settingInfo }) => {
           </Styled.List>
           <Styled.List>
             <Styled.AddDrawerBtnWrapper>
-              <button type='button' onClick={() => setAddDrawerActive(!addDrawerActive)}>
+              <span>서랍</span>
+              <button
+                type='button'
+                onClick={() => setAddDrawerActive(!addDrawerActive)}
+                title='서랍추가'
+              >
                 <PlusIcon />
               </button>
             </Styled.AddDrawerBtnWrapper>
             <Styled.Item className='drawerBtnLine'>
-              <span>서랍</span>
               <Styled.DrawerBtnWrapper ref={drawerRef}>
                 {allDrawers.length > 0 && (
                   <DrawerList
@@ -340,12 +348,16 @@ const SentenceEditor = ({ settingMode, settingInfo }) => {
           </Styled.List>
           <Styled.List>
             <Styled.AddDrawerBtnWrapper>
-              <button type='button' onClick={() => setAddDrawerActive(!addDrawerActive)}>
+              <span>서랍</span>
+              <button
+                type='button'
+                onClick={() => setAddDrawerActive(!addDrawerActive)}
+                title='서랍추가'
+              >
                 <PlusIcon />
               </button>
             </Styled.AddDrawerBtnWrapper>
             <Styled.Item className='drawerBtnLine'>
-              <span>서랍</span>
               <Styled.DrawerBtnWrapper ref={drawerRef}>
                 {allDrawers.length > 0 && (
                   <DrawerList

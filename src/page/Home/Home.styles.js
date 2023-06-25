@@ -46,6 +46,14 @@ export const BookList = styled.ul`
   padding-left: 3%;
 `;
 
+export const NoData = styled.section`
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
 export const Article = styled.article`
   display: flex;
   justify-content: center;

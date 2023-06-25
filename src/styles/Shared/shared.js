@@ -11,9 +11,3 @@ export const Header = styled.header`
   padding-bottom: 0.5rem;
   border-bottom: 1px solid #e2e2e2;
 `;
-
-export const ErrorText = styled.span`
-  color: red;
-  font-size: 0.9rem;
-  padding-left: 0.4rem;
-`;

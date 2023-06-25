@@ -37,7 +37,7 @@ const AddContents = () => {
   return (
     <Note css={style}>
       <Header>
-        <button type='button' onClick={() => navigate(-1)}>
+        <button type='button' onClick={() => navigate(-1)} title='뒤로가기'>
           <BackIcon />
         </button>
       </Header>

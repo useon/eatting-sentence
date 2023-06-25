@@ -4,15 +4,7 @@ import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { useDispatch } from 'react-redux';
 import { setUser } from 'redux/userSlice';
 import logo from 'assets/images/Logo.png';
-import {
-  BtnWrapper,
-  Form,
-  FormWrapper,
-  Input,
-  Logo,
-  SubmitBtn,
-  WelcomeText,
-} from 'styles/Shared/JoinAndLogIn';
+import * as Styled from 'styles/Shared/JoinAndLogIn';
 
 const LogIn = () => {
   const auth = getAuth();
@@ -47,12 +39,18 @@ const LogIn = () => {
   };
 
   return (
-    <FormWrapper>
-      <Logo src={logo} alt='레터링로고' />
-      <WelcomeText>로그인</WelcomeText>
-      <Form onSubmit={onSubmit}>
-        <Input name='email' required value={email} onChange={onChange} placeholder='이메일' />
-        <Input
+    <Styled.FormWrapper>
+      <Styled.Logo src={logo} alt='레터링로고' />
+      <Styled.WelcomeText>로그인</Styled.WelcomeText>
+      <Styled.Form onSubmit={onSubmit}>
+        <Styled.Input
+          name='email'
+          required
+          value={email}
+          onChange={onChange}
+          placeholder='이메일'
+        />
+        <Styled.Input
           name='password'
           type='password'
           required
@@ -60,17 +58,17 @@ const LogIn = () => {
           onChange={onChange}
           placeholder='비밀번호'
         />
-        <BtnWrapper fill='black'>
-          <SubmitBtn onClick={onSubmit} color='white'>
+        <Styled.BtnWrapper fill='black'>
+          <Styled.SubmitBtn onClick={onSubmit} color='white'>
             로그인하기
-          </SubmitBtn>
-        </BtnWrapper>
-        {error}
-      </Form>
-      <button type='button' onClick={() => navigate('/join')}>
+          </Styled.SubmitBtn>
+        </Styled.BtnWrapper>
+        <Styled.ErrorText>{error}</Styled.ErrorText>
+      </Styled.Form>
+      <Styled.AnotherPageBtn type='button' onClick={() => navigate('/join')}>
         회원가입하기
-      </button>
-    </FormWrapper>
+      </Styled.AnotherPageBtn>
+    </Styled.FormWrapper>
   );
 };
 export default LogIn;

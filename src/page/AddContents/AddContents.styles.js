@@ -10,8 +10,10 @@ export const Section = styled.section`
 export const LeftPage = styled(WiredCard)`
   width: 50%;
   display: flex;
-  align-items: center;
   justify-content: center;
+  img {
+    padding-top: 50%;
+  }
   @media all and (max-width: 1024px) {
     display: none;
   }

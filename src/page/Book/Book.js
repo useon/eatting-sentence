@@ -191,20 +191,20 @@ const Book = () => {
   return (
     <>
       <Header>
-        <button type='button' onClick={() => navigate(-1)}>
+        <button type='button' onClick={() => navigate(-1)} title='뒤로가기'>
           <BackIcon />
         </button>
         <div>
-          <button type='button' onClick={goAddContents}>
+          <button type='button' onClick={goAddContents} title='문장추가'>
             <PlusIcon />
           </button>
           {editMode && (
-            <button type='button' onClick={() => setEditMode(false)}>
+            <button type='button' onClick={() => setEditMode(false)} title='취소하기'>
               <CancelIcon />
             </button>
           )}
           {editMode === false && (
-            <button type='button' onClick={() => setEditMode(true)}>
+            <button type='button' onClick={() => setEditMode(true)} title='수정하기'>
               <EditIcon />
             </button>
           )}

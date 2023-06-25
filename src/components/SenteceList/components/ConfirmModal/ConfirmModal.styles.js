@@ -15,21 +15,29 @@ export const ModalOutside = styled.div`
 `;
 
 export const ModalWrapper = styled(WiredCard)`
-  width: 20%;
+  width: 55%;
   display: flex;
   position: relative;
   background-color: rgb(252, 252, 252);
   box-shadow: rgba(0, 0, 0, 0.25) 0px 4px 4px;
   flex-direction: column;
   align-items: center;
-  padding: 30px;
-  gap: 10px;
+  padding: 2rem;
   overflow: hidden;
+  @media all and (min-width: 481px) and (max-width: 1024px) {
+    width: 30%;
+  }
+
+  @media all and (min-width: 1025px) {
+    width: 20%;
+  }
 `;
 
 export const ButtonArea = styled.div`
-  text-align: center;
   padding-top: 10%;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
 `;
 
 export const CancelBtn = styled(WiredButton)``;

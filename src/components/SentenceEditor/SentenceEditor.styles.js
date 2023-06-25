@@ -15,6 +15,11 @@ export const ListWrapper = styled.ul`
   padding-left: 1rem;
   padding-right: 1rem;
   overflow: auto;
+  @media all and (min-width: 1025px) {
+    margin-top: 5.3rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
 `;
 
 export const List = styled.li`
@@ -23,17 +28,19 @@ export const List = styled.li`
 `;
 
 export const Item = styled.div`
-  display: grid;
-  grid-template-columns: 20% 80%;
-  justify-items: center;
-
   &.titleLine,
   &.pageLine {
+    display: grid;
+    grid-template-columns: 20% 80%;
+    justify-items: center;
     height: 2rem;
     align-items: center;
   }
 
   &.sentenceLine {
+    display: grid;
+    grid-template-columns: 20% 80%;
+    justify-items: center;
     height: 6rem;
     align-items: baseline;
     @media all and (min-width: 1025px) {
@@ -42,8 +49,10 @@ export const Item = styled.div`
   }
 
   &.drawerBtnLine {
-    height: 6rem;
+    display: flex;
+    justify-content: center;
     align-items: baseline;
+    height: 6rem;
     @media all and (min-width: 1025px) {
       height: 8rem;
     }
@@ -62,18 +71,27 @@ export const TextArea = styled.textarea`
 `;
 
 export const DrawerBtnWrapper = styled.div`
-  width: 80%;
-  height: 6rem;
+  width: 70%;
   display: flex;
+  height: 6rem;
   flex-wrap: wrap;
   column-gap: 3%;
   overflow: auto;
 `;
 
 export const AddDrawerBtnWrapper = styled.div`
-  display: flex;
-  justify-content: end;
+  display: grid;
+  grid-template-columns: 20% 80%;
   height: 2rem;
+  align-items: center;
+  span {
+    display: flex;
+    justify-content: center;
+  }
+  button {
+    display: flex;
+    justify-content: end;
+  }
 `;
 
 export const SubmitBtnWrapper = styled.li`

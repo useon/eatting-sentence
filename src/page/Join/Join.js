@@ -2,16 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
 import logo from 'assets/images/Logo.png';
-import { ErrorText } from 'styles/Shared/shared';
-import {
-  BtnWrapper,
-  Form,
-  FormWrapper,
-  Input,
-  Logo,
-  SubmitBtn,
-  WelcomeText,
-} from 'styles/Shared/JoinAndLogIn';
+import * as Styled from 'styles/Shared/JoinAndLogIn';
 
 const Join = () => {
   const auth = getAuth();
@@ -65,7 +56,8 @@ const Join = () => {
     }
   };
 
-  const onSubmit = async () => {
+  const onSubmit = async (event) => {
+    event.preventDefault();
     try {
       await createUserWithEmailAndPassword(auth, userInfo.email, userInfo.password).then(
         (userCredential) => {
@@ -79,42 +71,44 @@ const Join = () => {
   };
 
   return (
-    <FormWrapper>
-      <Logo src={logo} />
-      <WelcomeText>회원가입</WelcomeText>
-      <Form>
-        <Input name='이메일' placeholder='이메일' required onChange={onChange} />
-        {errorActive.email && <ErrorText>이메일 형식을 확인해주세요</ErrorText>}
-        <Input
+    <Styled.FormWrapper>
+      <Styled.Logo src={logo} />
+      <Styled.WelcomeText>회원가입</Styled.WelcomeText>
+      <Styled.Form>
+        <Styled.Input name='이메일' placeholder='이메일' required onChange={onChange} />
+        {errorActive.email && <Styled.ErrorText>이메일 형식을 확인해주세요</Styled.ErrorText>}
+        <Styled.Input
           name='비밀번호'
           type='password'
           placeholder='비밀번호'
           required
           onChange={onChange}
         />
-        <Input
+        <Styled.Input
           name='비밀번호확인'
           type='password'
           placeholder='비밀번호확인'
           required
           onChange={onChange}
         />
-        {errorActive.passwordCheck && <ErrorText>비밀번호가 일치하지 않습니다</ErrorText>}
-        <BtnWrapper fill={btnDisabled ? 'gray' : 'black'}>
-          <SubmitBtn
+        {errorActive.passwordCheck && (
+          <Styled.ErrorText>비밀번호가 일치하지 않습니다</Styled.ErrorText>
+        )}
+        <Styled.BtnWrapper fill={btnDisabled ? 'gray' : 'black'}>
+          <Styled.SubmitBtn
             color={btnDisabled ? 'black' : 'white'}
             disabled={btnDisabled}
             onClick={onSubmit}
           >
             확인
-          </SubmitBtn>
-        </BtnWrapper>
-        {errorMessage !== '' && <ErrorText>{errorMessage}</ErrorText>}
-        <button type='button' onClick={() => navigate('/login')}>
+          </Styled.SubmitBtn>
+        </Styled.BtnWrapper>
+        {errorMessage !== '' && <Styled.ErrorText>{errorMessage}</Styled.ErrorText>}
+        <Styled.AnotherPageBtn type='button' onClick={() => navigate('/login')}>
           로그인하기
-        </button>
-      </Form>
-    </FormWrapper>
+        </Styled.AnotherPageBtn>
+      </Styled.Form>
+    </Styled.FormWrapper>
   );
 };
 

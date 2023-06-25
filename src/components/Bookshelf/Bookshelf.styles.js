@@ -4,7 +4,6 @@ export const BookWrapper = styled.li`
   width: 29%;
   border-bottom: none;
   padding: 0;
-  border-bottom: 0.2rem solid #ebebeb;
 
   img {
     width: 100%;

@@ -97,16 +97,6 @@ const Home = () => {
     });
   };
 
-  const paintNodata = () => (
-    <div>
-      <img src={logo} alt='로고' />
-      <p>등록된 문장이 없어요</p>
-      <button type='button' onClick={goAddContents}>
-        <PlusIcon />
-      </button>
-    </div>
-  );
-
   // logout을 home에서 말고 컴포넌트를 따로 만들자.
   const logOut = async () => {
     navigate('/login');
@@ -118,21 +108,27 @@ const Home = () => {
     return (
       <Note>
         <Header>
-          <button type='button' onClick={() => logOut()}>
+          <button type='button' onClick={() => logOut()} title='로그아웃'>
             <LogoutIcon />
           </button>
+          <button type='button' onClick={goAddContents} title='문장추가'>
+            <PlusIcon />
+          </button>
         </Header>
-        <section>{paintNodata()}</section>
+        <Styled.NoData>
+          <img src={logo} alt='로고' />
+          <p>등록된 문장이 없어요</p>
+        </Styled.NoData>
       </Note>
     );
   }
   return (
     <>
       <Header>
-        <button type='button' onClick={() => logOut()}>
+        <button type='button' onClick={() => logOut()} title='로그아웃'>
           <LogoutIcon />
         </button>
-        <button type='button' onClick={goAddContents}>
+        <button type='button' onClick={goAddContents} title='문장추가'>
           <PlusIcon />
         </button>
       </Header>
