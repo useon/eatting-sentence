@@ -76,6 +76,7 @@ export const DrawerBtnWrapper = styled.div`
   height: 6rem;
   flex-wrap: wrap;
   column-gap: 3%;
+  row-gap: 5%;
   overflow: auto;
 `;
 

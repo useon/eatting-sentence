@@ -13,9 +13,9 @@ const SearchResult = ({ id, thumbnail, title, authors, isCheck, checkHandler }) 
       <strong className='resultBook_title' id={id}>
         {title}
       </strong>
-      <span className='resultBook_author' id={id}>
-        {authors}
-      </span>
+      <Styled.Authors className='resultBook_author' id={id}>
+        {authors.length > 1 ? authors.join(', ') : authors}
+      </Styled.Authors>
     </Styled.RightChild>
   </Styled.List>
 );

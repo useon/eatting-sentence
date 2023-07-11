@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useEffect, useRef, useState } from 'react';
 import { ReactComponent as CancelIcon } from 'assets/icons/Cancel.svg';
 import { ReactComponent as SearchIcon } from 'assets/icons/Search.svg';
+import alternateImage from 'assets/images/Book.png';
 import SearchResult from './components/SearchResult/SearchResult';
 import * as Styled from './SearchBook.styles';
 import Pagenate from './components/Pagenate/Pagenate';
@@ -21,6 +22,7 @@ const SearchBook = ({ getBookInfo, setSearchActive, setBookTitle }) => {
   const [query, setQuery] = useState('');
   const [checkArr, setCheckArr] = useState([]);
   const [page, setPage] = useState(1);
+  const [submit, setSubmit] = useState(false);
   const searchInput = useRef(null);
   const pageBtnNumber = useRef();
 
@@ -37,6 +39,7 @@ const SearchBook = ({ getBookInfo, setSearchActive, setBookTitle }) => {
     if (pageableCount > 50) pageableCount = 50;
     pageBtnNumber.current = Math.ceil(pageableCount / 5);
     setBooks(result.data.documents);
+    setSubmit(true);
   };
 
   useEffect(() => {
@@ -56,6 +59,7 @@ const SearchBook = ({ getBookInfo, setSearchActive, setBookTitle }) => {
     if (value === '') {
       setBooks([]);
       pageBtnNumber.current = 0;
+      setSubmit(false);
     }
   };
 
@@ -68,22 +72,44 @@ const SearchBook = ({ getBookInfo, setSearchActive, setBookTitle }) => {
     setBookTitle(title);
   };
 
-  const SearchResultPaint = () => {
-    const result = [];
-    books.forEach((book, index) => {
-      result.push(
-        <SearchResult
-          key={book.isbn}
-          id={index}
-          thumbnail={book.thumbnail}
-          title={book.title}
-          authors={book.authors}
-          isCheck={checkArr[index]}
-          checkHandler={checkHandler}
-        />
+  const searchResultPaint = () => {
+    if (books.length === 0) {
+      return (
+        <div>
+          <span>&#34;{query}&#34;에 대한 검색결과가 없습니다.</span>
+        </div>
       );
-    });
-    return result;
+    } else {
+      const result = [];
+      books.forEach((book, index) => {
+        if (book.thumbnail === '') {
+          result.push(
+            <SearchResult
+              key={book.isbn}
+              id={index}
+              thumbnail={alternateImage}
+              title={book.title}
+              authors={book.authors}
+              isCheck={checkArr[index]}
+              checkHandler={checkHandler}
+            />
+          );
+        } else {
+          result.push(
+            <SearchResult
+              key={book.isbn}
+              id={index}
+              thumbnail={book.thumbnail}
+              title={book.title}
+              authors={book.authors}
+              isCheck={checkArr[index]}
+              checkHandler={checkHandler}
+            />
+          );
+        }
+      });
+      return result;
+    }
   };
 
   const pageBtnPaint = () => {
@@ -134,7 +160,7 @@ const SearchBook = ({ getBookInfo, setSearchActive, setBookTitle }) => {
             </Styled.SearchForm>
           </Styled.SearchBox>
           <Styled.ResultUl className='SearchResult'>
-            {books.length !== 0 && SearchResultPaint()}
+            {submit && searchResultPaint()}
           </Styled.ResultUl>
           {pageBtnNumber.current !== 0 && <Styled.PageWrapper>{pageBtnPaint()}</Styled.PageWrapper>}
         </Styled.Modal>

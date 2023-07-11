@@ -7,6 +7,7 @@ export const BookWrapper = styled.li`
 
   img {
     width: 100%;
+    height: 70%;
   }
 
   @media all and (min-width: 481px) and (max-width: 1024px) {

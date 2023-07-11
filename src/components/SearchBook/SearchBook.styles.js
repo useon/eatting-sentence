@@ -77,6 +77,8 @@ export const ResultUl = styled.ul`
   height: 80%;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const PageWrapper = styled.div`

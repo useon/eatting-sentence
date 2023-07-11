@@ -25,3 +25,10 @@ export const RightChild = styled.div`
   display: flex;
   flex-direction: column;
 `;
+
+export const Authors = styled.span`
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.9rem;
+`;
