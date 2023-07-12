@@ -43,7 +43,9 @@ const SearchBook = ({ getBookInfo, setSearchActive, setBookTitle }) => {
   };
 
   useEffect(() => {
-    getBook();
+    if (submit) {
+      getBook();
+    }
   }, [page]);
 
   const submitKeyWord = (e) => {
