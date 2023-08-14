@@ -21,9 +21,10 @@ const Book = () => {
   const thumbnail = location.state.settingThumbnail;
   const [docSnapshot, setDocSnapshot] = useState([]);
   const [listData, setListData] = useState([]);
-  const [senteceSorting, setSenteceSorting] = useState('페이지오름차순');
+  const [sentenceSorting, setSentenceSorting] = useState('페이지오름차순');
   const [editMode, setEditMode] = useState(false);
   const [deleteSentence, setDeleteSentence] = useState('');
+  const [reprocessorAction, setReprocessorAction] = useState(false);
   const selectRef = useRef(null);
 
   const getBookData = async () => {
@@ -37,9 +38,9 @@ const Book = () => {
     setDocSnapshot(data);
   };
 
-  const reprocesser = () => {
+  const reprocessor = () => {
     const sortedArray = [];
-    if (senteceSorting.includes('페이지')) {
+    if (sentenceSorting.includes('페이지')) {
       docSnapshot.forEach((query) => {
         sortedArray.push([
           query.data().page,
@@ -47,8 +48,12 @@ const Book = () => {
         ]);
       });
       sortedArray.sort((a, b) => a[0] - b[0]);
-      if (senteceSorting === '페이지오름차순') setListData(sortedArray);
-      if (senteceSorting === '페이지내림차순') setListData(sortedArray.reverse());
+      if (sentenceSorting === '페이지오름차순') {
+        return setListData(sortedArray);
+      }
+      if (sentenceSorting === '페이지내림차순') {
+        return setListData(sortedArray.reverse());
+      }
     } else {
       docSnapshot.forEach((query) => {
         sortedArray.push([
@@ -57,22 +62,25 @@ const Book = () => {
         ]);
       });
       sortedArray.sort((a, b) => b[0] - a[0]);
-      if (senteceSorting === '최신순') setListData(sortedArray);
-      if (senteceSorting === '오래된순') setListData(sortedArray.reverse());
+      if (sentenceSorting === '최신순') {
+        return setListData(sortedArray);
+      }
+      if (sentenceSorting === '오래된순') {
+        return setListData(sortedArray.reverse());
+      }
     }
   };
 
   const paintSentenceList = () => {
     const result = [];
     if (editMode === true) {
-      if (senteceSorting.includes('페이지')) {
+      if (sentenceSorting.includes('페이지')) {
         listData.forEach((array) => {
           const registeredTime = array[1][2];
           result.push(
             <SentenceList
               key={registeredTime}
               type='book'
-              // edit={true}
               edit
               title={title}
               authors={authors}
@@ -87,7 +95,7 @@ const Book = () => {
         });
         return result;
       }
-      if (senteceSorting.includes('페이지') === false) {
+      if (sentenceSorting.includes('페이지') === false) {
         listData.forEach((array) => {
           const registeredTime = array[0];
           result.push(
@@ -111,7 +119,7 @@ const Book = () => {
     }
 
     if (editMode === false) {
-      if (senteceSorting.includes('페이지')) {
+      if (sentenceSorting.includes('페이지')) {
         listData.forEach((array) => {
           const registeredTime = array[1][2];
           result.push(
@@ -132,7 +140,7 @@ const Book = () => {
         });
         return result;
       }
-      if (senteceSorting.includes('페이지') === false) {
+      if (sentenceSorting.includes('페이지') === false) {
         listData.forEach((array) => {
           const registeredTime = array[0];
           result.push(
@@ -173,7 +181,7 @@ const Book = () => {
   };
 
   const handleSelect = () => {
-    setSenteceSorting(selectRef.current.selected);
+    setSentenceSorting(selectRef.current.selected);
   };
 
   useEffect(() => {
@@ -181,8 +189,13 @@ const Book = () => {
   }, []);
 
   useEffect(() => {
-    reprocesser();
-  }, [docSnapshot, senteceSorting]);
+    setReprocessorAction(false);
+    reprocessor();
+  }, [docSnapshot, sentenceSorting]);
+
+  useEffect(() => {
+    setReprocessorAction(true);
+  }, [listData]);
 
   useEffect(() => {
     if (deleteSentence !== '') deleteSentenceToDB();
@@ -211,7 +224,7 @@ const Book = () => {
         </div>
       </Header>
       <Styled.NotePad>
-        <Styled.Select ref={selectRef} selected={senteceSorting} onMouseLeave={handleSelect}>
+        <Styled.Select ref={selectRef} selected={sentenceSorting} onMouseLeave={handleSelect}>
           <Styled.Item value='페이지오름차순'>페이지오름차순</Styled.Item>
           <Styled.Item value='페이지내림차순'>페이지내림차순</Styled.Item>
           <Styled.Item value='최신순'>최신순</Styled.Item>
@@ -222,7 +235,9 @@ const Book = () => {
             <Styled.Title>{title}</Styled.Title>
             <Styled.Authors>{authors.length > 1 ? authors.join(', ') : authors}</Styled.Authors>
           </Styled.Info>
-          <Styled.SentencesWrapper>{paintSentenceList()}</Styled.SentencesWrapper>
+          <Styled.SentencesWrapper>
+            {reprocessorAction && paintSentenceList()}
+          </Styled.SentencesWrapper>
         </Styled.Section>
       </Styled.NotePad>
     </>
