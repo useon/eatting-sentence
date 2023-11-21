@@ -227,8 +227,8 @@ const Book = () => {
         <Styled.Select ref={selectRef} selected={sentenceSorting} onMouseLeave={handleSelect}>
           <Styled.Item value='페이지오름차순'>페이지오름차순</Styled.Item>
           <Styled.Item value='페이지내림차순'>페이지내림차순</Styled.Item>
-          <Styled.Item value='최신순'>최신순</Styled.Item>
-          <Styled.Item value='오래된순'>오래된순</Styled.Item>
+          {/* <Styled.Item value='최신순'>최신순</Styled.Item>
+          <Styled.Item value='오래된순'>오래된순</Styled.Item> */}
         </Styled.Select>
         <Styled.Section>
           <Styled.Info>

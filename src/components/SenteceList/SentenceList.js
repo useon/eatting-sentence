@@ -29,7 +29,6 @@ const SentenceList = ({
     minute: timeArr.splice(0, 2).join(''),
   };
   const time = `${timeObj.year}.${timeObj.month}.${timeObj.day} ${timeObj.hour}:${timeObj.minute}`;
-
   useEffect(() => {
     if (deleteConfirm) {
       setDeleteSentence(sentence);
@@ -71,7 +70,7 @@ const SentenceList = ({
           )}
           <Styled.SentenceBox>
             <Styled.Header>
-              <Styled.SentenceInfoText>{time}</Styled.SentenceInfoText>
+              {/* <Styled.SentenceInfoText>{time}</Styled.SentenceInfoText> */}
             </Styled.Header>
             <Styled.BoxArticle>
               {page !== 0 && (
@@ -90,7 +89,7 @@ const SentenceList = ({
       <Styled.ContentsArea>
         <Styled.SentenceBox>
           <Styled.Header>
-            <Styled.SentenceInfoText>{time}</Styled.SentenceInfoText>
+            {/* <Styled.SentenceInfoText>{time}</Styled.SentenceInfoText> */}
           </Styled.Header>
           <Styled.BoxArticle>
             {page !== 0 && <Styled.SentenceInfoText>p.&nbsp;{page}&nbsp;</Styled.SentenceInfoText>}
@@ -120,7 +119,7 @@ const SentenceList = ({
           )}
           <Styled.SentenceBox>
             <Styled.Header>
-              <Styled.SentenceInfoText>{time}</Styled.SentenceInfoText>
+              {/* <Styled.SentenceInfoText>{time}</Styled.SentenceInfoText> */}
             </Styled.Header>
             <Styled.BoxArticle>
               <Styled.Sentence>{sentence}</Styled.Sentence>
@@ -140,7 +139,7 @@ const SentenceList = ({
       <Styled.ContentsArea>
         <Styled.SentenceBox>
           <Styled.Header>
-            <Styled.SentenceInfoText>{time}</Styled.SentenceInfoText>
+            {/* <Styled.SentenceInfoText>{time}</Styled.SentenceInfoText> */}
           </Styled.Header>
           <Styled.BoxArticle>
             <Styled.Sentence>{sentence}</Styled.Sentence>

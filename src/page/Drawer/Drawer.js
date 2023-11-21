@@ -137,10 +137,10 @@ const Drawer = () => {
         </div>
       </Header>
       <Styled.NotePad>
-        <Styled.Select ref={selectRef} selected={senteceSorting} onMouseLeave={handleSelect}>
+        {/* <Styled.Select ref={selectRef} selected={senteceSorting} onMouseLeave={handleSelect}>
           <Styled.Item value='최신순'>최신순</Styled.Item>
           <Styled.Item value='오래된순'>오래된순</Styled.Item>
-        </Styled.Select>
+        </Styled.Select> */}
         <Styled.Section>
           <Styled.Info>
             <Styled.Title>{drawerName}</Styled.Title>
